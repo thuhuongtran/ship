@@ -1,36 +1,37 @@
 package com.vimensa.ship.client.controller;
 
 import com.vimensa.ship.client.APIStart;
+import com.vimensa.ship.client.data.DataProcessImp;
 import com.vimensa.ship.client.model.ErrorCode;
+import com.vimensa.ship.client.service.LoginCode;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @RestController
 public class Controller {
     private final Logger logger = LoggerFactory.getLogger(APIStart.class);
+    @Autowired
+    private DataProcessImp dao;
 
     /**
-     * blank page redirect to login page
+     * /register
+     * call service to get random code
+     * add in db
+     * @param: phone
      * */
-    @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
-    public void home(HttpServletResponse response){
-        try {
-            response.sendRedirect("/login");
-        } catch (IOException e) {
-            response.addHeader("e:", String.valueOf(ErrorCode.SYSTEM_EXCEPTION));
-            logger.info(Controller.class.getName()+" /home -"+e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String login(HttpServletResponse response){
-        return "login";
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public void register(HttpServletRequest req, HttpServletResponse res){
+        String phone = req.getParameter("phone");
+        String code = LoginCode.getCode();
+        dao.registerClient(phone,code);
+        logger.info(Controller.class.getName()+" insert into client successfully");
+        res.addHeader("e:", String.valueOf(ErrorCode.SUCCESS));
     }
 }
