@@ -33,7 +33,7 @@ public class Controller {
         String code = LoginCode.getCode();
         dao.registerClient(phone,code);
         logger.info(Controller.class.getName()+" insert into client successfully");
-        res.addHeader("e:", String.valueOf(ErrorCode.SUCCESS));
+        res.addHeader("e", String.valueOf(ErrorCode.SUCCESS));
     }
     /**
      * /newOrder
@@ -59,6 +59,8 @@ public class Controller {
         tasks.addNewOrder(from,to,mass,adv_paym,note,jwt);
         //call to get best suitable shipper
         logger.info(Controller.class.getName()+" insert successfully");
-        res.addHeader("e:", String.valueOf(ErrorCode.SUCCESS));
+        res.addHeader("e", String.valueOf(ErrorCode.SUCCESS));
     }
+
+
 }
