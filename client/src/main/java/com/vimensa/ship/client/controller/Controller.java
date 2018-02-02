@@ -3,6 +3,7 @@ package com.vimensa.ship.client.controller;
 import com.vimensa.ship.client.APIStart;
 import com.vimensa.ship.client.data.DataProcess;
 import com.vimensa.ship.client.model.ErrorCode;
+import com.vimensa.ship.client.request.NewOrder;
 import com.vimensa.ship.client.service.LoginCode;
 import com.vimensa.ship.client.service.Tasks;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -38,27 +39,22 @@ public class Controller {
     /**
      * /newOrder
      * new order to process immediately
+     * call get_shipper_api to response to shipper
+     * insert into order_system
+     * log
      * @param: from - to - note - mass - adv_paym
      * */
     @RequestMapping(value = "/neworder",method = RequestMethod.POST)
     public void newOrder(HttpServletRequest req, HttpServletResponse res,
-                         @RequestParam("from") String from,
-                         @RequestParam("to")String to,
-                         @RequestParam("note") String note,
-                         @RequestParam("mass")String mass,
-                         @RequestParam("adv_paym")String adv_paym,
+                         @RequestBody NewOrder newOrder,
                          @RequestHeader("Authorization")String jwt){
-        from = req.getParameter("from");
-        to = req.getParameter("to");
-        note = req.getParameter("note");
-        mass = req.getParameter("mass");
-        adv_paym = req.getParameter("adv_paym");
+
         jwt = req.getHeader("Authorization");
-        logger.info("param: "+from+" "+to+" "+note+" "+" "+mass+" "+adv_paym);
-        logger.info(jwt);
-        tasks.addNewOrder(from,to,mass,adv_paym,note,jwt);
-        //call to get best suitable shipper
-        logger.info(Controller.class.getName()+" insert successfully");
+
+        //insert into order_log
+
+        // add in order_system
+        //call get_shipper_api to response the most suitable shipper to client
         res.addHeader("e", String.valueOf(ErrorCode.SUCCESS));
     }
 

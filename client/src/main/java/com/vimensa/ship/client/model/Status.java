@@ -9,4 +9,5 @@ public class Status {
     public static final int ORDER_DELIVERING=4;
     public static final int ORDER_DELIVERED=0;
     public static final int ORDER_CANCELED=5;
+    public static final int ORDER_PROCESS_IMMEDIATELY=7;
 }

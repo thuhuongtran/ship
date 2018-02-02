@@ -30,22 +30,5 @@ public class ControllerTest {
         Client client = dao.getClientByPhone(phone);
         assertEquals(phone, client.getPhone());
     }
-    @Test
-    public void insertNewOrderTest(){
-        String from = "20.13365";
-        String to = "102.365";
-        String adv_paym = "0";
-        String mass = "1";
-        String note = "";
-        String status = "1";
-        String client_phone = "0236598745";
-        String timestamp = "10235698741";
-        dao.addNewOrder(timestamp, from, to, mass, adv_paym, status, client_phone, note);
-        assertEquals(0,0);
-    }
-    @Test
-    public void insertNewOrderTaskTest(){
-        tasks.addNewOrder("20.5666","101.236","1","0","",
-                "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMjM1NjIzMTIzMSIsImV4cCI6MTUxNzgxNzU3OX0.yMcYIxn3Y9gFXTDdYCIAXT9MvY-R8l_auG7vRp_neyGgH1K-Jx5FrAhOuOE5XFzlpBQgrJ8bSVJgiausnPYIEw");
-    }
+
 }

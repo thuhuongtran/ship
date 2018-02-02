@@ -1,8 +1,11 @@
 package ship.client;
 
+import com.vimensa.ship.client.service.Tasks;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
+
+import static org.junit.Assert.assertEquals;
 
 public class TasksTest {
     @Test
@@ -40,5 +43,10 @@ public class TasksTest {
         }
         result = result.substring(result.indexOf("sub") + 6, result.indexOf(",") - 1);
         return result;
+    }
+    @Test
+    public void getFeeTest(){
+        double dis1 = Tasks.getFee(15.2);
+        assertEquals("55000",(int)dis1);
     }
 }

@@ -1,0 +1,239 @@
+{
+  "ords": [
+    {
+      "num": "O1",
+      "oriName": "Đô thị Định Công, Định Công, Hoàng Mai, HN",
+      "oriLat": "20.9857814",
+      "oriLot": "105.8327653",
+      "desName": "Nha hang Tiệc cưới cung Đình, 85 Tôn Đức Thắng, Hàng Bột, Đống Đa, HN",
+      "desLat": "21.0253647",
+      "desLot": "105.8332973"
+    },
+    {
+      "num": "O2",
+      "oriName": "45 Ngô Sĩ Liên, Văn Miếu Đống Đa, HN",
+      "oriLat": "21.0271357",
+      "oriLot": "105.8393332",
+      "desName": "Tung Long Co.Ltd, 55 Ly Nam De, Hoan Kiem, HN",
+      "desLat": "21.032661",
+      "desLot": "105.8447848"
+    },
+    {
+      "num": "O3",
+      "oriName": "Vịt quay An Nam, 130 Trương Định, Hai Bà Trưng, Hn",
+      "oriLat": "20.992693",
+      "oriLot": "105.8496953",
+      "desName": "Ngõ 238, Tân Mai, Hoàng Mai, HN",
+      "desLat": "20.979500",
+      "desLot": "105.850780"
+    },
+    {
+      "num": "O4",
+      "oriName": "Sieu thi Ha Dang, Me tri, Nam Tu Liem, HN",
+      "oriLat": "20.995358",
+      "oriLot": "105.7845946",
+      "desName": "KFC, To Hieu, P. Nguyen Trai, Ha Dong, HN",
+      "desLat": "20.9685715",
+      "desLot": "105.7797771"
+    },
+    {
+      "num": "O5",
+      "oriName": "79b, pho Gia Quat, Thuong Thanh, Long Bien, Hn",
+      "oriLat": "21.0553007",
+      "oriLot": "105.8773542",
+      "desName": "Quan Oc phui, Hang Trong, Hoan Kiem, HN",
+      "desLat": "21.0287234",
+      "desLot": "105.8496317"
+    },
+    {
+      "num": "O6",
+      "oriName": "9 Dinh Ngang, Cua Nam, Hn",
+      "oriLat": "21.0283229",
+      "oriLot": "105.8427901",
+      "desName": "DH kiem sat Hn, Duong Kinh, Ha Dong, Hn",
+      "desLat": "20.9710905",
+      "desLot": "105.7485069"
+    },
+    {
+      "num": "O7",
+      "oriName": "Dong Nhan, Dong La, Hoai Duc,HN",
+      "oriLat": "20.9639914",
+      "oriLot": "105.7222787",
+      "desName": "72A1 Duong Nam Thanh Cong, Lang Ha, Dong Da, HN",
+      "desLat": "21.0187822",
+      "desLot": "105.809644"
+    },
+    {
+      "num": "O8",
+      "oriName": "Cty Quoc Huy, Tam Hiep, Thanh Tri, Hn",
+      "oriLat": "20.9496558",
+      "oriLot": "105.8413131",
+      "desName": "Cafe Gia Dinh, Ngoc Hoi, Thanh Tri, Hn",
+      "desLat": "20.9232668",
+      "desLot": "105.8341868"
+    },
+    {
+      "num": "O9",
+      "oriName": "Ca kho Vu Dai, Ngoc Hoi,Thanh Tri, Hn",
+      "oriLat": "20.9239655",
+      "oriLot": "105.8339645",
+      "desName": "133-135 To Hieu,Ha Cau, Ha Dong, Hn",
+      "desLat": "20.9666026",
+      "desLot": "105.7785264"
+    },
+    {
+      "num": "O10",
+      "oriName": "234 Hoang Quoc Viet, Co Nhue, Tu Liem, Hn",
+      "oriLat": "21.0465492",
+      "oriLot": "105.7823693",
+      "desName": "Nghia Do, Cau Giay, Hn",
+      "desLat": "21.0477467",
+      "desLot": "105.800241"
+    },
+    {
+      "num": "O11",
+      "oriName": "Cau Vong, Dong Ngac, Tu Nghiem, Hn",
+      "oriLat": "21.0772623",
+      "oriLot": "105.7718988",
+      "desName": "Long Troc Quan, 657 Nguyen Hoang Ton, Xuan Dinh, Tu Liem, Hn",
+      "desLat": "21.0778828",
+      "desLot": "105.79212"
+    },
+    {
+      "num": "O12",
+      "oriName": "So 7 Son Tay, Dien Ban, Ba Dinh, Hn",
+      "oriLat": "21.0330265",
+      "oriLot": "105.8329392",
+      "desName": "Cha Ca La Vong, 107 Nguyen Truong To, Quan Thanh, Ba Dinh, HN",
+      "desLat": "21.0414744",
+      "desLot": "105.8450603"
+    },
+    {
+      "num": "O13",
+      "oriName": "30 Lo Su, Ly Thai To, Hoan Kiem, Hn",
+      "oriLat": "21.0313596",
+      "oriLot": "105.8548224",
+      "desName": "Chung cu Linh Dam, Nguyen Duy Trinh, Hoang Liet, Hoang Mai, Hn",
+      "desLat": "20.9648506",
+      "desLot": "105.8313336"
+    },
+    {
+      "num": "O14",
+      "oriName": "Cha Ca La Vong, 107 Nguyen Truong To, Quan Thanh, Ba Dinh, HN",
+      "oriLat": "21.0414744",
+      "oriLot": "105.8450603",
+      "desName": "DH kiem sat Hn, Duong Kinh, Ha Dong, Hn",
+      "desLat": "20.9710905",
+      "desLot": "105.7485069"
+    },
+    {
+      "num": "O15",
+      "oriName": "Ngõ 238, Tân Mai, Hoàng Mai, HN",
+      "oriLat": "20.979500",
+      "oriLot": "105.850780",
+      "desName": "26 Duong Lang,Lang Thuong,DongDa,Hn",
+      "desLat": "21.0268505",
+      "desLot": "105.8001542"
+    },
+    {
+      "num": "O16",
+      "oriName": "Vong La, Dong Anh, Hn",
+      "oriLat": "21.1107264",
+      "oriLot": "105.781135",
+      "desName": "Tam Xa, Dong Anh, Hn",
+      "desLat": "21.1066025",
+      "desLot": "105.8447063"
+    },
+    {
+      "num": "O17",
+      "oriName": "O Nhuan,Xuan Dinh,Tu Liem,Hn",
+      "oriLat": "21.0684833",
+      "oriLot": "105.7857594",
+      "desName": "Dich Vong Hau, Cau Giay,Hn",
+      "desLat": "21.0423276",
+      "desLot": "105.7860488"
+    },
+    {
+      "num": "O18",
+      "oriName": "Quan Hoa, Cau Giay,Hn",
+      "oriLat": "21.0399138",
+      "oriLot": "105.8005432",
+      "desName": "Ngoc Ha, Ba Dinh,Hn",
+      "desLat": "21.0355494",
+      "desLot": "105.8292408"
+    },
+    {
+      "num": "O19",
+      "oriName": "O Cho Dua, Dong Da, Hn",
+      "oriLat": "21.0193442",
+      "oriLot": "105.8217342",
+      "desName": "Cu Khe, Thanh Oai, Hn",
+      "desLat": "20.9389389",
+      "desLot": "105.788726"
+    },
+    {
+      "num": "O20",
+      "oriName": "Van Phu, Thuong Tin, Hn",
+      "oriLat": "20.8799738",
+      "oriLot": "105.8794402",
+      "desName": "Co Bi,Gia lam, Hn",
+      "desLat": "21.0206862",
+      "desLot": "105.9481936"
+    },
+    {
+      "num": "O21",
+      "oriName": "Dinh Cong,Hoang Mai, Hn",
+      "oriLat": "20.9848383",
+      "oriLot": "105.8265851",
+      "desName": "Van Mieu, Dong Da,Hn",
+      "desLat": "21.0242431",
+      "desLot": "105.8392084"
+    },
+    {
+      "num": "O22",
+      "oriName": "16 Ngo Hang Bot, Phuong Cat linh, Hn",
+      "oriLat": "21.0291064",
+      "oriLot": "105.8342839",
+      "desName": "5 Pho Ngo Quyen, Ly Thai To, Hn",
+      "desLat": "21.0277887",
+      "desLot": "105.8561511"
+    },
+    {
+      "num": "O23",
+      "oriName": "P. Long Bien, Long Bien, Hn",
+      "oriLat": "21.0240197",
+      "oriLot": "105.8787244",
+      "desName": "Dong Ngac,Thuy Phuong, Tu Liem, Hn",
+      "desLat": "21.0826459",
+      "desLot": "105.7722861"
+    },
+    {
+      "num": "O24",
+      "oriName": "Khuong Trung, Thanh Xuan, hn",
+      "oriLat": "20.9963952",
+      "oriLot": "105.8220664",
+      "desName": "325 Doi 10, Mai De, Ha Dong, Hn",
+      "desLat": "20.9876666",
+      "desLot": "105.7729941"
+    },
+    {
+      "num": "O25",
+      "oriName":"Dai Thanh, Quoc Oai,Hn",
+      "oriLat": "20.9617695",
+      "oriLot": "105.7093862",
+      "desName":"Vịt quay An Nam, 130 Trương Định, Hai Bà Trưng, Hn",
+      "desLat": "20.992693",
+      "desLot": "105.8496953"
+    },
+    {
+      "num": "O26",
+      "oriName":"Nha hang Tiệc cưới cung Đình, 85 Tôn Đức Thắng, Hàng Bột, Đống Đa, HN",
+      "oriLat": "21.0253647",
+      "oriLot": "105.8332973",
+      "desName":"KFC, To Hieu, P. Nguyen Trai, Ha Dong, HN",
+      "desLat": "20.9685715",
+      "desLot": "105.7797771"
+    }
+
+  ]
+}

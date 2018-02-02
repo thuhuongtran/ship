@@ -41,14 +41,9 @@ public class DataProcess {
         Client client = jdbcTemplate.queryForObject(sql, Client.class);
         return client;
     }
-    /**
-     * insert new order into orders table
-     * @param: timestamp - from- to -mass- adv_paym - status - client_phone - note
-     * */
-    public void addNewOrder(String timestamp,String from, String to, String mass, String adv_paym, String status,
-                            String client_phone, String note){
-        String sql = QueryCode.INSERT_NEW_ORDER;
-        jdbcTemplate.update(sql, new Object[]{from, to, adv_paym, mass, note, status, client_phone, timestamp});
-        logger.info(DataProcess.class.getName()+" insert successfully.");
-    }
+   /**
+    * add new order in order_log
+    * @param neworder
+    * */
+
 }
