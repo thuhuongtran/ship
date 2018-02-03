@@ -10,9 +10,9 @@ public class DataSourceConfig {
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        driverManagerDataSource.setUrl("jdbc:mysql://171.244.27.229:3306/ship_client");
+        driverManagerDataSource.setUrl("jdbc:mysql://171.244.10.52:3306/ship");
         driverManagerDataSource.setUsername("misa");
-        driverManagerDataSource.setPassword("Vp@abc123");
+        driverManagerDataSource.setPassword("VnDgV5*A8m2k16L>?");
         return driverManagerDataSource;
     }
 

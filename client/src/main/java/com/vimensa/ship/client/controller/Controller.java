@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 public class Controller {
@@ -28,9 +29,8 @@ public class Controller {
      * @param: phone
      * */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void register(HttpServletRequest req, HttpServletResponse res,
+    public void register(HttpServletResponse res,
                          @RequestParam("phone") String phone){
-        phone = req.getParameter("phone");
         String code = LoginCode.getCode();
         dao.registerClient(phone,code);
         logger.info(Controller.class.getName()+" insert into client successfully");
@@ -45,14 +45,15 @@ public class Controller {
      * @param: from - to - note - mass - adv_paym
      * */
     @RequestMapping(value = "/neworder",method = RequestMethod.POST)
-    public void newOrder(HttpServletRequest req, HttpServletResponse res,
+    public void newOrder(HttpServletResponse res,
                          @RequestBody NewOrder newOrder,
                          @RequestHeader("Authorization")String jwt){
-
-        jwt = req.getHeader("Authorization");
-
         //insert into order_log
-
+        try {
+            String shipperPhone = Tasks.getDriver(newOrder, jwt);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // add in order_system
         //call get_shipper_api to response the most suitable shipper to client
         res.addHeader("e", String.valueOf(ErrorCode.SUCCESS));

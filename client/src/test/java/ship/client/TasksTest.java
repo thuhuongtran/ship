@@ -1,8 +1,10 @@
 package ship.client;
 
+import com.vimensa.ship.client.request.NewOrder;
 import com.vimensa.ship.client.service.Tasks;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import static org.junit.Assert.assertEquals;
@@ -48,5 +50,11 @@ public class TasksTest {
     public void getFeeTest(){
         double dis1 = Tasks.getFee(15.2);
         assertEquals("55000",(int)dis1);
+    }
+    @Test
+    public void getDriverTest() throws IOException {
+        NewOrder order = new NewOrder("09653562321",20.9857814,105.8327653,21.0253647,105.8332973);
+        String shipperPhone = Tasks.getDriver(order,"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMjM1Njk4NzUiLCJleHAiOjE1MTgxNTc4MTN9.14m06D9RUZmfllI0iIFbqTQwNTYwwnNai-wy1-ngHOCbTSVqeuNlEc8GuPCksPTaoDUvIP4iogP5OEPXHUkHFQ");
+        assertEquals("09653265322",shipperPhone);
     }
 }

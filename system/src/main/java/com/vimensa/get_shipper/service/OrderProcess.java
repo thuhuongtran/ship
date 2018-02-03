@@ -1,11 +1,17 @@
 package com.vimensa.get_shipper.service;
 
 import com.google.gson.Gson;
-import com.vimensa.get_shipper.data.DriverData;
+import com.vimensa.get_shipper.RunAPI;
+import com.vimensa.get_shipper.dao.Shipper;
+import com.vimensa.get_shipper.data.DataProcess;
 import com.vimensa.get_shipper.model.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,8 +19,11 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
+@Service
 public class OrderProcess {
-
+    private final static Logger logger = LoggerFactory.getLogger(RunAPI.class);
+    @Autowired
+    private static DataProcess dao;
     /**
      * call Kd-Tree.nearestNeighbor to return 5 nearest drivers
      *
@@ -28,7 +37,7 @@ public class OrderProcess {
         List<KdTree.XYZPoint> points = DriverManagement.toXYZPoints(drivers);
         KdTree.XYZPoint search = origin.toOriginXYZPoint();
         KdTree<KdTree.XYZPoint> kdTree = new KdTree<KdTree.XYZPoint>(points);
-        Collection<KdTree.XYZPoint> result = kdTree.nearestNeighbourSearch(5, search);
+        Collection<KdTree.XYZPoint> result = kdTree.nearestNeighbourSearch(3, search);// HERE ----------
         shippers = DriverManagement.toDrivers(result);
 
         return shippers;
@@ -80,10 +89,9 @@ public class OrderProcess {
      * @param order
      * @return driver - ID
      */
-    public static String getDriver(Order order) throws IOException {
+    public static String getDriver(Order order, List<Driver> driverDB) throws IOException {
         String driver = "";
-        DriverData.getDrivers();
-        List<Driver> drivers = OrderProcess.getNearDrivers(DriverData.drivers, order);
+        List<Driver> drivers = OrderProcess.getNearDrivers(driverDB, order);
         List<Distance> distances = OrderProcess.getRealDistances(drivers, order);
         // sort distances by distance
         distances.sort(new Comparator<Distance>() {
@@ -95,5 +103,16 @@ public class OrderProcess {
         int index = distances.get(0).getId().indexOf("_");
         driver = distances.get(0).getId().substring(0, index);
         return driver;
+    }
+    /**
+     * shippers to drivers
+     * */
+    public static List<Driver> toDrivers(List<Shipper> shippers){
+        List<Driver> drivers = new ArrayList<>();
+        for(int i =0;i<shippers.size();i++){
+            Driver driver = new Driver(shippers.get(i).getPhone(),shippers.get(i).getLog(),shippers.get(i).getLat());
+            drivers.add(driver);
+        }
+        return drivers;
     }
 }
