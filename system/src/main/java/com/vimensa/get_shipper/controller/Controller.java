@@ -1,6 +1,7 @@
 package com.vimensa.get_shipper.controller;
 
 import com.vimensa.get_shipper.RunAPI;
+import com.vimensa.get_shipper.dao.Shipper;
 import com.vimensa.get_shipper.data.DataProcess;
 import com.vimensa.get_shipper.model.ErrorCode;
 import com.vimensa.get_shipper.model.Order;
@@ -20,9 +21,14 @@ public class Controller {
     @Autowired
     private DataProcess dao;
 
+    /**
+     * response shipper info
+     * insert into order_shipper table db
+     * */
     @RequestMapping(value = "/getshipper", method = RequestMethod.POST)
     @ResponseBody
     public ShipperResponse getShipper(@RequestParam("client_phone") String phone,
+                                      @RequestParam("order_id")String orderID,
                                       @RequestParam("from_lat")double from_lat,
                                       @RequestParam("from_log") double from_log,
                                       @RequestParam("to_lat")double to_lat,
@@ -31,8 +37,14 @@ public class Controller {
         Order order = new Order(phone,from_lat,from_log,to_lat,to_log);
         try {
             String shipperPhone = OrderProcess.getDriver(order, OrderProcess.toDrivers(dao.findAllDrivers()));
+            Shipper shipper = dao.getShipperByPhone(shipperPhone);
             resp.setShipperPhone(shipperPhone);
+            resp.setShipperLat(shipper.getLat());
+            resp.setShipperLog(shipper.getLog());
             resp.setError(ErrorCode.SUCCESS);
+
+            //insert into db
+            dao.newOrderShipperSystem(shipperPhone,orderID);
         } catch (IOException e) {
             resp.setError(ErrorCode.SYSTEM_EXCEPTION);
             logger.info(Controller.class.getName()+" io exception");

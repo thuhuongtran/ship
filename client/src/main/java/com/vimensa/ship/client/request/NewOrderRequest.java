@@ -1,6 +1,6 @@
 package com.vimensa.ship.client.request;
 
-public class NewOrder {
+public class NewOrderRequest {
     private String client_phone;
     private int adv_paym;
     private int mass;
@@ -13,7 +13,25 @@ public class NewOrder {
     private double to_log;
     private double distance;
 
-    public NewOrder(String client_phone, double from_lat, double from_log, double to_lat, double to_log) {
+    public NewOrderRequest() {
+    }
+
+    public NewOrderRequest(String client_phone, int adv_paym, int mass, String note, String from, String to,
+                           double from_lat, double from_log, double to_lat, double to_log, double distance) {
+        this.client_phone = client_phone;
+        this.adv_paym = adv_paym;
+        this.mass = mass;
+        this.note = note;
+        this.from = from;
+        this.to = to;
+        this.from_lat = from_lat;
+        this.from_log = from_log;
+        this.to_lat = to_lat;
+        this.to_log = to_log;
+        this.distance = distance;
+    }
+
+    public NewOrderRequest(String client_phone, double from_lat, double from_log, double to_lat, double to_log) {
         this.client_phone = client_phone;
         this.from_lat = from_lat;
         this.from_log = from_log;

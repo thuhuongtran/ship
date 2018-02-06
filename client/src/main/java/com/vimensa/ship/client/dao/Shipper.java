@@ -1,28 +1,20 @@
 package com.vimensa.ship.client.dao;
 
-public class Client {
+public class Shipper {
     private String phone;
     private String code;
     private String name;
     private String mail;
-    private String place;
     private String enabled;
     private String timestamp;
+    private double star;
 
-    public String getPlace() {
-        return place;
+    public double getStar() {
+        return star;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setStar(double star) {
+        this.star = star;
     }
 
     public String getPhone() {
@@ -63,5 +55,13 @@ public class Client {
 
     public void setEnabled(String enabled) {
         this.enabled = enabled;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

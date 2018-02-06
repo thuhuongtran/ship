@@ -1,6 +1,7 @@
 package ship.client;
 
-import com.vimensa.ship.client.request.NewOrder;
+import com.vimensa.ship.client.request.NewOrderRequest;
+import com.vimensa.ship.client.response.NewOrderResponse;
 import com.vimensa.ship.client.service.Tasks;
 import org.junit.Test;
 
@@ -53,8 +54,9 @@ public class TasksTest {
     }
     @Test
     public void getDriverTest() throws IOException {
-        NewOrder order = new NewOrder("09653562321",20.9857814,105.8327653,21.0253647,105.8332973);
-        String shipperPhone = Tasks.getDriver(order,"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMjM1Njk4NzUiLCJleHAiOjE1MTgxNTc4MTN9.14m06D9RUZmfllI0iIFbqTQwNTYwwnNai-wy1-ngHOCbTSVqeuNlEc8GuPCksPTaoDUvIP4iogP5OEPXHUkHFQ");
-        assertEquals("09653265322",shipperPhone);
+        NewOrderRequest order = new NewOrderRequest("09653562321",20.9857814,105.8327653,21.0253647,105.8332973);
+        NewOrderResponse shipper = Tasks.getDriver(order,"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMjM1Njk4NzUiLCJleHAiOjE1MTgxNTc4MTN9.14m06D9RUZmfllI0iIFbqTQwNTYwwnNai-wy1-ngHOCbTSVqeuNlEc8GuPCksPTaoDUvIP4iogP5OEPXHUkHFQ");
+
+        assertEquals("09653265322",shipper.getShipper_phone());
     }
 }

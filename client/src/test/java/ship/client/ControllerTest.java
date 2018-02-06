@@ -2,6 +2,7 @@ package ship.client;
 
 import com.vimensa.ship.client.APIStart;
 import com.vimensa.ship.client.dao.Client;
+import com.vimensa.ship.client.dao.Shipper;
 import com.vimensa.ship.client.data.DataProcess;
 import com.vimensa.ship.client.service.LoginCode;
 import com.vimensa.ship.client.service.Tasks;
@@ -29,6 +30,12 @@ public class ControllerTest {
         dao.registerClient(phone,code);
         Client client = dao.getClientByPhone(phone);
         assertEquals(phone, client.getPhone());
+    }
+    @Test
+    public void testGetDriverByPhone(){
+        String phone = "09653874125";
+        Shipper shipper=dao.getShipperByPhone(phone);
+        assertEquals("158795463211",shipper.getTimestamp());
     }
 
 }

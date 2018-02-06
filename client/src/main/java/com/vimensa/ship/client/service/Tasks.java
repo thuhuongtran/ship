@@ -6,7 +6,8 @@ import com.vimensa.ship.client.APIStart;
 import com.vimensa.ship.client.dao.OrderLog;
 import com.vimensa.ship.client.data.DataProcess;
 import com.vimensa.ship.client.model.Status;
-import com.vimensa.ship.client.request.NewOrder;
+import com.vimensa.ship.client.request.NewOrderRequest;
+import com.vimensa.ship.client.response.NewOrderResponse;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -21,9 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -71,7 +70,7 @@ public class Tasks {
         return str + timestamp;
     }
 
-    public static double getFee(double distance) {
+    public static double getFee(double distance) { // distance in km
         double fee = 20000;
         if (distance <= 3) {
             fee = 20000;
@@ -82,7 +81,7 @@ public class Tasks {
         return fee;
     }
 
-    public static OrderLog getOrderLog(NewOrder newOrder) {
+    public static OrderLog getOrderLog(NewOrderRequest newOrder) {
         OrderLog orderLog = new OrderLog();
         orderLog.setOrderID(Tasks.getOrderID());
         orderLog.setTimestamp(Tasks.getTimestamp());
@@ -103,7 +102,7 @@ public class Tasks {
      * call get_driver_api
      * response driver_phone to client
      */
-    public static String getDriver(NewOrder order, String jwt) throws IOException {
+    public static NewOrderResponse getDriver(NewOrderRequest order, String orderID, String jwt) throws IOException {
         String url = "http://192.168.1.192:8072/getshipper";
 
         HttpClient client = HttpClientBuilder.create().build();
@@ -115,6 +114,7 @@ public class Tasks {
 
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
         urlParameters.add(new BasicNameValuePair("client_phone", order.getClient_phone()));
+        urlParameters.add(new BasicNameValuePair("order_id", orderID));
         urlParameters.add(new BasicNameValuePair("from_lat", String.valueOf(order.getFrom_lat())));
         urlParameters.add(new BasicNameValuePair("from_log", String.valueOf(order.getFrom_log())));
         urlParameters.add(new BasicNameValuePair("to_lat", String.valueOf(order.getTo_lat())));
@@ -127,8 +127,13 @@ public class Tasks {
         String json = EntityUtils.toString(entity);
         EntityUtils.consume(entity);
         JsonObject result = (JsonObject) new JsonParser().parse(json);
-        String shipperPhone = result.get("shipperPhone").getAsString();
-        return shipperPhone;
+
+        NewOrderResponse newOrderResponse = new NewOrderResponse();
+        newOrderResponse.setShipper_phone(result.get("shipperPhone").getAsString());
+        newOrderResponse.setShipper_lat(result.get("shipperLat").getAsString());
+        newOrderResponse.setShipper_log(result.get("shipperLog").getAsString());
+
+        return newOrderResponse;
     }
 
 }

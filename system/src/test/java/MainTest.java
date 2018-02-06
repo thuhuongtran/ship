@@ -58,5 +58,20 @@ public class MainTest {
         List<Driver> drivers = OrderProcess.toDrivers(dao.findAllDrivers());
         assertEquals(4,drivers.size());
     }
+    @Test
+    public void getObjectByElementInListTest(){
+        List<Driver> drivers = OrderProcess.toDrivers(dao.findAllDrivers());
+        Driver driver = new Driver();
+        driver.setId("01232323232");
+        int ind = drivers.indexOf(driver);
+        System.out.println(ind);
+        Driver driv = drivers.get(ind);
+        System.out.println(driv.getLatitude()+ " "+driv.getLongitude());
+        assertEquals("21.0000281", String.valueOf(driv.getLatitude()));
+    }
+    @Test
+    public void newOrderShipperSystemTest(){
+        dao.newOrderShipperSystem("01236598562","15296584561OD");
+    }
 }
 
