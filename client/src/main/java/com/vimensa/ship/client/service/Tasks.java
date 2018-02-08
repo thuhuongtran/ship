@@ -81,23 +81,6 @@ public class Tasks {
         return fee;
     }
 
-    public static OrderLog getOrderLog(NewOrderRequest newOrder) {
-        OrderLog orderLog = new OrderLog();
-        orderLog.setOrderID(Tasks.getOrderID());
-        orderLog.setTimestamp(Tasks.getTimestamp());
-        orderLog.setStatus(Status.ORDER_PROCESS_IMMEDIATELY);
-        orderLog.setClient_phone(newOrder.getClient_phone());
-        orderLog.setAdv_paym(newOrder.getAdv_paym());
-        orderLog.setMass(newOrder.getMass());
-        orderLog.setNote(newOrder.getNote());
-        orderLog.setFrom(newOrder.getFrom());
-        orderLog.setTo(newOrder.getTo());
-        orderLog.setDistance(newOrder.getDistance());
-        orderLog.setFee(getFee(newOrder.getDistance()));
-        // set shipper phone
-        return orderLog;
-    }
-
     /**
      * call get_driver_api
      * response driver_phone to client

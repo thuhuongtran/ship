@@ -2,7 +2,9 @@ package com.vimensa.ship.client.request;
 
 public class NewOrderRequest {
     private String client_phone;
+    private String client_name;
     private int adv_paym;
+    private int item_type;
     private int mass;
     private String note;
     private String from;
@@ -16,10 +18,12 @@ public class NewOrderRequest {
     public NewOrderRequest() {
     }
 
-    public NewOrderRequest(String client_phone, int adv_paym, int mass, String note, String from, String to,
-                           double from_lat, double from_log, double to_lat, double to_log, double distance) {
+    public NewOrderRequest(String client_phone, String client_name, int adv_paym, int item_type, int mass, String note,
+                           String from, String to, double from_lat, double from_log, double to_lat, double to_log, double distance) {
         this.client_phone = client_phone;
+        this.client_name = client_name;
         this.adv_paym = adv_paym;
+        this.item_type = item_type;
         this.mass = mass;
         this.note = note;
         this.from = from;
@@ -61,6 +65,22 @@ public class NewOrderRequest {
 
     public String getTo() {
         return to;
+    }
+
+    public String getClient_name() {
+        return client_name;
+    }
+
+    public void setClient_name(String client_name) {
+        this.client_name = client_name;
+    }
+
+    public int getItem_type() {
+        return item_type;
+    }
+
+    public void setItem_type(int item_type) {
+        this.item_type = item_type;
     }
 
     public double getDistance() {

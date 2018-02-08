@@ -10,4 +10,8 @@ public class Status {
     public static final int ORDER_DELIVERED=0;
     public static final int ORDER_CANCELED=5;
     public static final int ORDER_PROCESS_IMMEDIATELY=7;
+    // order_system
+    public static final int WAIT_ORDER = 1;
+    public static final int URGENT_ORDER = 2;
+    public static final int RESERVE_ORDER = 3;
 }

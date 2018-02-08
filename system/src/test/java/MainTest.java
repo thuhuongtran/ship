@@ -71,7 +71,7 @@ public class MainTest {
     }
     @Test
     public void newOrderShipperSystemTest(){
-        dao.newOrderShipperSystem("01236598562","15296584561OD");
+        dao.newOrderShipperSystem("056329865745","1518079433653OD");
     }
 }
 

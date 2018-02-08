@@ -8,7 +8,8 @@ public class QueryCode {
     public static final String GET_SHIPPER_BY_PHONE =
             "SELECT * FROM `shipper` WHERE `phone` =?";
 
-    public static final String NEW_ORDER_LOG = "INSERT INTO `order_log`" +
-            "(`order_id`,`timestamp`,`status`,`client_phone`,`shipper_phone`,`adv_paym`,`mass`,`note`,`from`,`to`,`distance`,`fee`)" +
-            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String ADD_NEW_ORDER_SYSTEM =
+            "INSERT INTO `order_system`(`order_id`,`from_lat`,`from_log`,`to_lat`,`to_log`,`timestamp`,`status`," +
+                    "`client_phone`,`client_name`,`adv_paym`,`mass`,`note`,`from`,`to`,`distance`,`fee`,`item_type`)" +
+                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 }

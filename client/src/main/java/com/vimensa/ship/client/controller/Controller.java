@@ -39,8 +39,8 @@ public class Controller {
         res.addHeader("e", String.valueOf(ErrorCode.SUCCESS));
     }
     /**
-     * /newOrder
-     * new order to process immediately
+     * /newOrder: new order to process immediately
+     * add into order_system
      * call get_shipper_api to response to shipper
      * insert into order_system
      * log
@@ -53,14 +53,18 @@ public class Controller {
                          @RequestHeader("Authorization")String jwt){
         NewOrderResponse resp = new NewOrderResponse();
         try {
-            String orderID = Calendar.getInstance().getTimeInMillis()+"OD";
+            long timestamp =Calendar.getInstance().getTimeInMillis();
+            String orderID = timestamp+"OD";
+            double fee = Tasks.getFee(newOrder.getDistance());
+            // add into order_system
+            dao.newOrderSystem(timestamp,orderID,fee,newOrder);
             // call system to get driver
             resp = Tasks.getDriver(newOrder,orderID,jwt);
             // call db to get shipper info
             Shipper shipper = dao.getShipperByPhone(resp.getShipper_phone());
             resp.setShipper_name(shipper.getName());
             resp.setStar(shipper.getStar());
-            resp.setFee(Tasks.getFee(newOrder.getDistance()));
+            resp.setFee(fee);
             resp.setError(ErrorCode.SUCCESS);
         } catch (IOException e) {
             resp.setError(ErrorCode.SYSTEM_EXCEPTION);
