@@ -3,6 +3,8 @@ package com.vimensa.ship.shipper.controller;
 import com.vimensa.ship.shipper.APIStart;
 import com.vimensa.ship.shipper.data.DataProcess;
 import com.vimensa.ship.shipper.model.ErrorCode;
+import com.vimensa.ship.shipper.request.Register;
+import com.vimensa.ship.shipper.response.CommonResponse;
 import com.vimensa.ship.shipper.response.GetOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,5 +35,19 @@ public class Controller {
         }
         return  ord;
     }
-
+    /**
+     * new shipper register
+     * add in shipper table with enable = 0
+     * @param: phone
+     * */
+    @RequestMapping(value ="/register", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResponse register(@RequestBody Register register){
+        CommonResponse res = new CommonResponse();
+        String phone = register.getPhone();
+        dao.registerNewShipper(phone);
+        res.setError(ErrorCode.SUCCESS);
+        logger.info(Controller.class.getName()+" register new shipper successfully.");
+        return res;
+    }
 }

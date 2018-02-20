@@ -1,7 +1,9 @@
 package com.vimensa.ship.shipper.data;
 
 import com.vimensa.ship.shipper.APIStart;
+import com.vimensa.ship.shipper.model.Status;
 import com.vimensa.ship.shipper.response.GetOrder;
+import com.vimensa.ship.shipper.service.LoginCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,10 @@ public class DataProcess {
         GetOrder ord = jdbcTemplate.queryForObject(sql, new Object[]{order_id},
                 new BeanPropertyRowMapper<>(GetOrder.class));
         return ord;
+    }
+    public void registerNewShipper(String phone){
+        String sql = QueryCode.REGISTER_SHIPPER;
+        jdbcTemplate.update(sql, new Object[]{phone, LoginCode.getCode(),Status.UNENABLED_SHIPPER});
     }
 
 }
