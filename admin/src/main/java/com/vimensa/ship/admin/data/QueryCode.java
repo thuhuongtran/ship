@@ -1,7 +1,9 @@
 package com.vimensa.ship.admin.data;
 
 public class QueryCode {
-    public final static String ACCEPT_NEW_REGISTER_ENABLE = "UPDATE `shipper` SET `name`=?,`mail`=?,`enabled`=?,`timestamp`=?" +
+    public final static String ACCEPT_NEW_REGISTER_SHIPPER_ENABLE = "UPDATE `shipper` SET `name`=?,`mail`=?,`enabled`=?,`timestamp`=?" +
+            "WHERE `phone`=?;";
+    public final static String ACCEPT_NEW_REGISTER_CLIENT_ENABLE = "UPDATE `client` SET `name`=?,`mail`=?,`enabled`=?,`timestamp`=?" +
             "WHERE `phone`=?;";
     public final static String GET_SHIPPER_BY_PHONE = "SELECT * FROM `shipper` WHERE `phone`=?";
     public final static String ADD_INTO_USER_ROLE = "INSERT INTO `user_role`(`phone`,`role`) VALUES(?,?)";

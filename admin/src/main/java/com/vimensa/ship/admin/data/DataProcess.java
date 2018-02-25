@@ -26,8 +26,12 @@ public class DataProcess {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void enableNewRegister(String phone, String name, String mail, String timestamp) {
-        String sql = QueryCode.ACCEPT_NEW_REGISTER_ENABLE;
+    public void enableNewRegisterShipper(String phone, String name, String mail, String timestamp) {
+        String sql = QueryCode.ACCEPT_NEW_REGISTER_SHIPPER_ENABLE;
+        jdbcTemplate.update(sql, new Object[]{name, mail, Status.ENABLED_USER, timestamp, phone});
+    }
+    public void enableNewRegisterClient(String phone, String name, String mail, String timestamp) {
+        String sql = QueryCode.ACCEPT_NEW_REGISTER_CLIENT_ENABLE;
         jdbcTemplate.update(sql, new Object[]{name, mail, Status.ENABLED_USER, timestamp, phone});
     }
 

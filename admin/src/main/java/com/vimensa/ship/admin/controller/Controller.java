@@ -37,7 +37,7 @@ public class Controller {
         String name = newShipper.getName();
         String mail = newShipper.getMail();
         long timestamp = Calendar.getInstance().getTimeInMillis();
-        dao.enableNewRegister(shipperPhone, name, mail, String.valueOf(timestamp));
+        dao.enableNewRegisterShipper(shipperPhone, name, mail, String.valueOf(timestamp));
         dao.addNewShipperInUserRole(shipperPhone);
         res.setError(ErrorCode.SUCCESS);
         logger.info(Controller.class.getName()+" accept new register shipper successfully.");
@@ -56,7 +56,7 @@ public class Controller {
         String name = client.getName();
         String mail = client.getMail();
         long timestamp = Calendar.getInstance().getTimeInMillis();
-        dao.enableNewRegister(clientPhone, name, mail, String.valueOf(timestamp));
+        dao.enableNewRegisterClient(clientPhone, name, mail, String.valueOf(timestamp));
         dao.addNewClientInUserRole(clientPhone);
         res.setError(ErrorCode.SUCCESS);
         logger.info(Controller.class.getName()+" accept new register client successfully.");

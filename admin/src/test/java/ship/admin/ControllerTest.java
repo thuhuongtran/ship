@@ -26,7 +26,7 @@ public class ControllerTest {
         String mail = "hello20118@mail.com";
         long timestamp = Calendar.getInstance().getTimeInMillis();
         String phone = "01296537687";
-        dao.enableRegisterShipper(phone, name, mail, String.valueOf(timestamp));
+        dao.enableNewRegisterShipper(phone, name, mail, String.valueOf(timestamp));
         Shipper shipper = dao.getShipperByPhone(phone);
         assertEquals(phone, shipper.getPhone());
     }
