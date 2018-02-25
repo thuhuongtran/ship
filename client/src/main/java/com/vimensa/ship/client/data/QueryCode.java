@@ -2,7 +2,7 @@ package com.vimensa.ship.client.data;
 
 public class QueryCode {
     public static final String REGISTER_CLIENT =
-            "INSERT INTO `client`(`phone`,`code`,`enabled`) VALUES(?,?,0)";
+            "INSERT INTO `client`(`phone`,`code`,`enabled`) VALUES(?,?,?)";
     public static final String GET_CLIENT_BY_PHONE =
             "SELECT * FROM `client` WHERE `phone` =?";
     public static final String GET_SHIPPER_BY_PHONE =

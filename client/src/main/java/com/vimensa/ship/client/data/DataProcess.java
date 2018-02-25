@@ -6,6 +6,7 @@ import com.vimensa.ship.client.dao.Shipper;
 import com.vimensa.ship.client.model.ErrorCode;
 import com.vimensa.ship.client.model.Status;
 import com.vimensa.ship.client.request.NewOrderRequest;
+import com.vimensa.ship.client.service.LoginCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,10 @@ public class DataProcess {
      * register client - fix later
      *
      * @param phone
-     * @param code
      */
-    public void registerClient(String phone, String code) {
+    public void registerClient(String phone) {
         String sql = QueryCode.REGISTER_CLIENT;
-        jdbcTemplate.update(sql, new Object[]{phone, code});
+        jdbcTemplate.update(sql, new Object[]{phone, LoginCode.getCode(),Status.CLIENT_UNOFFICIAL});
         logger.info(DataProcess.class.getName() + " insert successfully.");
     }
 

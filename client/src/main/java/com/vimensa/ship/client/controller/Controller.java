@@ -5,6 +5,8 @@ import com.vimensa.ship.client.dao.Shipper;
 import com.vimensa.ship.client.data.DataProcess;
 import com.vimensa.ship.client.model.ErrorCode;
 import com.vimensa.ship.client.request.NewOrderRequest;
+import com.vimensa.ship.client.request.Register;
+import com.vimensa.ship.client.response.CommonResponse;
 import com.vimensa.ship.client.response.NewOrderResponse;
 import com.vimensa.ship.client.service.LoginCode;
 import com.vimensa.ship.client.service.Tasks;
@@ -31,12 +33,14 @@ public class Controller {
      * @param: phone
      * */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void register(HttpServletResponse res,
-                         @RequestParam("phone") String phone){
-        String code = LoginCode.getCode();
-        dao.registerClient(phone,code);
+    @ResponseBody
+    public CommonResponse register(@RequestBody Register register){
+        CommonResponse res = new CommonResponse();
+        String phone = register.getPhone();
+        dao.registerClient(phone);
         logger.info(Controller.class.getName()+" insert into client successfully");
-        res.addHeader("e", String.valueOf(ErrorCode.SUCCESS));
+        res.setError(ErrorCode.SUCCESS);
+        return res;
     }
     /**
      * /newOrder: new order to process immediately
