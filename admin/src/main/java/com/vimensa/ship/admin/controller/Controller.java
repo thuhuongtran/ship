@@ -3,10 +3,7 @@ package com.vimensa.ship.admin.controller;
 import com.vimensa.ship.admin.APIStart;
 import com.vimensa.ship.admin.data.DataProcess;
 import com.vimensa.ship.admin.model.ErrorCode;
-import com.vimensa.ship.admin.request.AcceptNewClient;
-import com.vimensa.ship.admin.request.AcceptNewShipper;
-import com.vimensa.ship.admin.request.GetClientCodeReq;
-import com.vimensa.ship.admin.request.GetShipperCodeReq;
+import com.vimensa.ship.admin.request.*;
 import com.vimensa.ship.admin.response.CommonResponse;
 import com.vimensa.ship.admin.response.GetClientCodeRes;
 import com.vimensa.ship.admin.response.GetNewShipperRes;
@@ -100,6 +97,15 @@ public class Controller {
     public GetNewShipperRes getNewShipper(){
         GetNewShipperRes res = new GetNewShipperRes();
         res.setShipperLi(dao.getAllUnabledShippers());
+        return res;
+    }
+    @RequestMapping(value = "/sessionLog",method = RequestMethod.POST)
+    public CommonResponse sessionLog(@RequestBody Phone p){
+        CommonResponse res = new CommonResponse();
+        String phone = p.getPhone();
+        dao.adminLoginLog(phone);
+        res.setError(ErrorCode.SUCCESS);
+        logger.info(Controller.class.getName()+" session log successfully.");
         return res;
     }
 }

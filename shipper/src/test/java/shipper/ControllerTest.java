@@ -28,4 +28,8 @@ public class ControllerTest {
         GetOrder ord = dao.getDetailOrderSystem(orderID);
         assertEquals("0965325685",ord.getClient_phone());
     }
+    @Test
+    public void shipperLoginLogTest(){
+        dao.shipperLoginLog("01296538687");
+    }
 }

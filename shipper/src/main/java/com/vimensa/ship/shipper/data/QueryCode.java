@@ -9,4 +9,6 @@ public class QueryCode {
             " INNER JOIN `order_shipper` ON `order_system`.`order_id`= `order_shipper`.`order_id`\n" +
             " WHERE `order_shipper`.`shipper_phone`=? AND `order_shipper`.`status`=2;";
     public static final String REGISTER_SHIPPER = "INSERT INTO `shipper`(`phone`,`code`,`enabled`) VALUES(?,?,?)";
+    public static final String LOGIN_LOG = "INSERT INTO `user_log`(`phone`,`time_in`,`timestamp`,`role`) VALUES(?,?,?,?)";
+
 }

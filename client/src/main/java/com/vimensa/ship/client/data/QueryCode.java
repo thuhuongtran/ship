@@ -12,4 +12,5 @@ public class QueryCode {
             "INSERT INTO `order_system`(`order_id`,`from_lat`,`from_log`,`to_lat`,`to_log`,`timestamp`,`status`," +
                     "`client_phone`,`client_name`,`adv_paym`,`mass`,`note`,`from`,`to`,`distance`,`fee`,`item_type`)" +
                     "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String LOGIN_LOG = "INSERT INTO `user_log`(`phone`,`time_in`,`timestamp`,`role`) VALUES(?,?,?,?)";
 }

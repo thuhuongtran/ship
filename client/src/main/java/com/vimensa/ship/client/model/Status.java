@@ -14,4 +14,6 @@ public class Status {
     public static final int WAIT_ORDER = 1;
     public static final int URGENT_ORDER = 2;
     public static final int RESERVE_ORDER = 3;
+
+    public static final String CLIENT_ROLE = "client";
 }

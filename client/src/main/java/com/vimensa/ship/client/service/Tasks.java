@@ -26,8 +26,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.apache.http.protocol.HTTP.USER_AGENT;
@@ -125,6 +127,9 @@ public class Tasks {
         Claims claims = Jwts.parser().setSigningKey(TokenAuthenticationService.SECRET).parseClaimsJws(jwt).getBody();
         String body = claims.getSubject();
         return body.contains("cLi");
+    }
+    public static String formatDate(Date d){
+        return new SimpleDateFormat("HH:mm:ss dd/MM/yyyy").format(d).toString();
     }
 
 }

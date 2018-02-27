@@ -7,6 +7,7 @@ import com.vimensa.ship.client.model.ErrorCode;
 import com.vimensa.ship.client.model.Status;
 import com.vimensa.ship.client.request.NewOrderRequest;
 import com.vimensa.ship.client.service.LoginCode;
+import com.vimensa.ship.client.service.Tasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 @Transactional
 @Repository
@@ -69,5 +72,11 @@ public class DataProcess {
                     ord.getClient_phone(), ord.getClient_name(), ord.getAdv_paym(), ord.getMass(), ord.getNote(),
                 ord.getFrom(), ord.getTo(), ord.getDistance(), fee, ord.getItem_type()});
         logger.info(DataProcess.class.getName()+ " insert successfully");
+    }
+    public void clientLoginLog(String phone){
+        String sql = QueryCode.LOGIN_LOG;
+        long timestamp = Calendar.getInstance().getTimeInMillis();
+        String time_in = Tasks.formatDate(new java.util.Date());
+        jdbcTemplate.update(sql, new Object[]{phone, time_in, timestamp, Status.CLIENT_ROLE});
     }
 }

@@ -5,17 +5,15 @@ import com.vimensa.ship.client.dao.Shipper;
 import com.vimensa.ship.client.data.DataProcess;
 import com.vimensa.ship.client.model.ErrorCode;
 import com.vimensa.ship.client.request.NewOrderRequest;
-import com.vimensa.ship.client.request.Register;
+import com.vimensa.ship.client.request.Phone;
 import com.vimensa.ship.client.response.CommonResponse;
 import com.vimensa.ship.client.response.NewOrderResponse;
-import com.vimensa.ship.client.service.LoginCode;
 import com.vimensa.ship.client.service.Tasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -34,7 +32,7 @@ public class Controller {
      * */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse register(@RequestBody Register register){
+    public CommonResponse register(@RequestBody Phone register){
         CommonResponse res = new CommonResponse();
         String phone = register.getPhone();
         dao.registerClient(phone);
@@ -77,6 +75,14 @@ public class Controller {
         }
         return resp;
     }
-
+    @RequestMapping(value = "/sessionLog",method = RequestMethod.POST)
+    public CommonResponse sessionLog(@RequestBody Phone p){
+        CommonResponse res = new CommonResponse();
+        String phone = p.getPhone();
+        dao.clientLoginLog(phone);
+        res.setError(ErrorCode.SUCCESS);
+        logger.info(Controller.class.getName()+" session log successfully.");
+        return res;
+    }
 
 }

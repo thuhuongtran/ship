@@ -1,6 +1,6 @@
 package com.vimensa.ship.client.request;
 
-public class Register {
+public class Phone {
     private String phone;
 
     public String getPhone() {

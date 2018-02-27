@@ -4,6 +4,7 @@ import com.vimensa.ship.admin.APIStart;
 import com.vimensa.ship.admin.dao.Client;
 import com.vimensa.ship.admin.dao.Shipper;
 import com.vimensa.ship.admin.model.Status;
+import com.vimensa.ship.admin.service.Tasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -64,4 +67,11 @@ public class DataProcess {
         List<String> shipperLi = jdbcTemplate.queryForList(sql, new Object[]{Status.UNABLED_SHIPPER}, String.class);
         return shipperLi;
     }
+    public void adminLoginLog(String phone){
+        String sql = QueryCode.LOGIN_LOG;
+        long timestamp = Calendar.getInstance().getTimeInMillis();
+        String time_in = Tasks.formatDate(new Date());
+        jdbcTemplate.update(sql, new Object[]{phone, time_in, timestamp, Status.ADMIN_ROLE});
+    }
+
 }

@@ -4,6 +4,7 @@ import com.vimensa.ship.shipper.APIStart;
 import com.vimensa.ship.shipper.model.Status;
 import com.vimensa.ship.shipper.response.GetOrder;
 import com.vimensa.ship.shipper.service.LoginCode;
+import com.vimensa.ship.shipper.service.Tasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
+import java.util.Calendar;
+import java.util.Date;
 
 @Transactional
 @Repository
@@ -38,6 +41,12 @@ public class DataProcess {
     public void registerNewShipper(String phone){
         String sql = QueryCode.REGISTER_SHIPPER;
         jdbcTemplate.update(sql, new Object[]{phone, LoginCode.getCode(),Status.UNENABLED_SHIPPER});
+    }
+    public void shipperLoginLog(String phone){
+        String sql = QueryCode.LOGIN_LOG;
+        long timestamp = Calendar.getInstance().getTimeInMillis();
+        String time_in = Tasks.formatDate(new Date());
+        jdbcTemplate.update(sql, new Object[]{phone, time_in, timestamp, Status.SHIPPER_ROLE});
     }
 
 }

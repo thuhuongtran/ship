@@ -36,13 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        // create a default account
-        /*
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("hellohello")
-                .roles("ADMIN");
-        */
+
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select `phone`,`code`,`enabled` from `client` where `phone`=?")
