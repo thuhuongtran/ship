@@ -1,5 +1,6 @@
 package com.vimensa.ship.shipper.authentication.security;
 
+import com.vimensa.ship.shipper.service.Tasks;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,13 +13,13 @@ import java.util.Date;
 
 public class TokenAuthenticationService {
     static final long EXPIRATIONTIME = 864_000_000; // 10 DAYS
-    static final String SECRET = "ThisIsASecret";
+    public static final String SECRET = "ThisIsASecret";
     static final String TOKEN_PREFIX = "Bearer";
     static final String HEADER_STRING = "Authorization";
 
     static void addAuthentication(HttpServletResponse res, String phone){
         String JWT = Jwts.builder()
-                .setSubject(phone)
+                .setSubject(phone+"sHp")
                 .setExpiration(new Date(System.currentTimeMillis()+EXPIRATIONTIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
@@ -26,7 +27,7 @@ public class TokenAuthenticationService {
     }
     static Authentication getAuthentication(HttpServletRequest request){
         String token = request.getHeader(HEADER_STRING);
-        if(token != null){
+        if(token != null&& Tasks.checkShipperRole(token)){
             // parse the token
             String user = Jwts.parser()
                     .setSigningKey(SECRET)

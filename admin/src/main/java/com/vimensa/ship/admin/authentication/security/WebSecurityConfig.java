@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.sql.DataSource;
@@ -35,13 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        // create a default account
-        /*
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("hellohello")
-                .roles("ADMIN");
-        */
+
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select `phone`,`code`,`enabled` from `admin` where `phone`=?")

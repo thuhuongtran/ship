@@ -3,11 +3,14 @@ package com.vimensa.ship.client.service;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.vimensa.ship.client.APIStart;
+import com.vimensa.ship.client.authentication.security.TokenAuthenticationService;
 import com.vimensa.ship.client.dao.OrderLog;
 import com.vimensa.ship.client.data.DataProcess;
 import com.vimensa.ship.client.model.Status;
 import com.vimensa.ship.client.request.NewOrderRequest;
 import com.vimensa.ship.client.response.NewOrderResponse;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -117,6 +120,11 @@ public class Tasks {
         newOrderResponse.setShipper_log(result.get("shipperLog").getAsString());
 
         return newOrderResponse;
+    }
+    public static boolean checkClientRole(String jwt){
+        Claims claims = Jwts.parser().setSigningKey(TokenAuthenticationService.SECRET).parseClaimsJws(jwt).getBody();
+        String body = claims.getSubject();
+        return body.contains("cLi");
     }
 
 }
