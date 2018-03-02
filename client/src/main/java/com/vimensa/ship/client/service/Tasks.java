@@ -4,11 +4,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.vimensa.ship.client.APIStart;
 import com.vimensa.ship.client.authentication.security.TokenAuthenticationService;
-import com.vimensa.ship.client.dao.OrderLog;
 import com.vimensa.ship.client.data.DataProcess;
-import com.vimensa.ship.client.model.Status;
-import com.vimensa.ship.client.request.NewOrderRequest;
-import com.vimensa.ship.client.response.NewOrderResponse;
+import com.vimensa.ship.client.request.UrgentOrderRequest;
+import com.vimensa.ship.client.response.OrderResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.apache.http.HttpEntity;
@@ -90,7 +88,7 @@ public class Tasks {
      * call get_driver_api
      * response driver_phone to client
      */
-    public static NewOrderResponse getDriver(NewOrderRequest order, String orderID, String jwt) throws IOException {
+    public static OrderResponse getDriver(UrgentOrderRequest order, String orderID, String jwt) throws IOException {
         String url = "http://192.168.1.192:8072/getshipper";
 
         HttpClient client = HttpClientBuilder.create().build();
@@ -116,7 +114,7 @@ public class Tasks {
         EntityUtils.consume(entity);
         JsonObject result = (JsonObject) new JsonParser().parse(json);
 
-        NewOrderResponse newOrderResponse = new NewOrderResponse();
+        OrderResponse newOrderResponse = new OrderResponse();
         newOrderResponse.setShipper_phone(result.get("shipperPhone").getAsString());
         newOrderResponse.setShipper_lat(result.get("shipperLat").getAsString());
         newOrderResponse.setShipper_log(result.get("shipperLog").getAsString());

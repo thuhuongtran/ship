@@ -1,11 +1,8 @@
 package ship.client;
 
-import com.vimensa.ship.client.request.NewOrderRequest;
-import com.vimensa.ship.client.response.NewOrderResponse;
 import com.vimensa.ship.client.service.Tasks;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import static org.junit.Assert.assertEquals;
@@ -52,11 +49,11 @@ public class TasksTest {
         double dis1 = Tasks.getFee(15.2);
         assertEquals("55000",(int)dis1);
     }
-    @Test
-    public void getDriverTest() throws IOException {
-        NewOrderRequest order = new NewOrderRequest("09653562321",20.9857814,105.8327653,21.0253647,105.8332973);
-        NewOrderResponse shipper = Tasks.getDriver(order,"orderID","eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMjM1Njk4NzUiLCJleHAiOjE1MTgxNTc4MTN9.14m06D9RUZmfllI0iIFbqTQwNTYwwnNai-wy1-ngHOCbTSVqeuNlEc8GuPCksPTaoDUvIP4iogP5OEPXHUkHFQ");
-
-        assertEquals("09653265322",shipper.getShipper_phone());
-    }
+//    @Test
+//    public void getDriverTest() throws IOException {
+//        UrgentOrderRequest order = new UrgentOrderRequest("09653562321",20.9857814,105.8327653,21.0253647,105.8332973);
+//        OrderResponse shipper = Tasks.getDriver(order,"orderID","eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMjM1Njk4NzUiLCJleHAiOjE1MTgxNTc4MTN9.14m06D9RUZmfllI0iIFbqTQwNTYwwnNai-wy1-ngHOCbTSVqeuNlEc8GuPCksPTaoDUvIP4iogP5OEPXHUkHFQ");
+//
+//        assertEquals("09653265322",shipper.getShipper_phone());
+//    }
 }

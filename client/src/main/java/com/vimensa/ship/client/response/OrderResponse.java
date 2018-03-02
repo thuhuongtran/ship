@@ -1,6 +1,6 @@
 package com.vimensa.ship.client.response;
 
-public class NewOrderResponse {
+public class OrderResponse {
     private int error;
     private String shipper_phone;
     private String shipper_name;
