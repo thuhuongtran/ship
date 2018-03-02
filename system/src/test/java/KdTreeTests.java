@@ -1,10 +1,10 @@
-import com.vimensa.get_shipper.service.KdTree;
+import com.vimensa.system.service.KdTree;
 
 import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import com.vimensa.get_shipper.service.KdTree.*;
+import com.vimensa.system.service.KdTree.*;
 
 import org.junit.Test;
 

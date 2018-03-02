@@ -1,4 +1,4 @@
-package com.vimensa.get_shipper.security;
+package com.vimensa.system.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

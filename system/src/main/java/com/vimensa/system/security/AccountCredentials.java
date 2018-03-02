@@ -1,4 +1,4 @@
-package com.vimensa.get_shipper.security;
+package com.vimensa.system.security;
 
 public class AccountCredentials {
     private String phone;

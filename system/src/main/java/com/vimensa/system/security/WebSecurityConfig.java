@@ -1,8 +1,7 @@
-package com.vimensa.get_shipper.security;
+package com.vimensa.system.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,16 +29,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        // create a default account
-        /*
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("hellohello")
-                .roles("ADMIN");
-        */
+
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select `phone`,`code`,`enabled` from `client` where `phone`=?")
+                .usersByUsernameQuery("select `phone`,`code`,`enabled` from `admin` where `phone`=?")
                 .authoritiesByUsernameQuery("select `phone`,`role` from `user_role` where `phone` = ?");
     }
 }

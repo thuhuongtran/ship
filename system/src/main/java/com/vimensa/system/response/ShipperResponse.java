@@ -1,4 +1,4 @@
-package com.vimensa.get_shipper.response;
+package com.vimensa.system.response;
 
 public class ShipperResponse {
     private int error;

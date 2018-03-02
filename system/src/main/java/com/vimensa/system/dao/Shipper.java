@@ -1,4 +1,4 @@
-package com.vimensa.get_shipper.dao;
+package com.vimensa.system.dao;
 
 public class Shipper {
     private String phone;

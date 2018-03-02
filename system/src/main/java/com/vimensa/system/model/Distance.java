@@ -1,4 +1,4 @@
-package com.vimensa.get_shipper.model;
+package com.vimensa.system.model;
 
 public class Distance {
     private String id;

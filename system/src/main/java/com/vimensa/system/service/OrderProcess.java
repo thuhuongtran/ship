@@ -1,10 +1,14 @@
-package com.vimensa.get_shipper.service;
+package com.vimensa.system.service;
 
 import com.google.gson.Gson;
-import com.vimensa.get_shipper.RunAPI;
-import com.vimensa.get_shipper.dao.Shipper;
-import com.vimensa.get_shipper.data.DataProcess;
-import com.vimensa.get_shipper.model.*;
+import com.vimensa.system.RunAPI;
+import com.vimensa.system.dao.Order;
+import com.vimensa.system.dao.Shipper;
+import com.vimensa.system.data.DataProcess;
+import com.vimensa.system.model.Distance;
+import com.vimensa.system.model.Driver;
+import com.vimensa.system.model.DriverManagement;
+import com.vimensa.system.model.GoogleDistance;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -66,8 +70,8 @@ public class OrderProcess {
         List<Distance> distances = new ArrayList<>();
         OrderProcess request = new OrderProcess();
         for (Driver driver : drivers) {
-            String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?&origins=" + origin.getFromLat() + ","
-                    + origin.getFromLog() +
+            String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?&origins=" + origin.getFrom_lat() + ","
+                    + origin.getFrom_log() +
                     "&destinations=" + driver.getLatitude() + "%2C" + driver.getLongitude() + "&key=" + API_KEY;
             String response = request.run(url_request);
 
@@ -76,7 +80,7 @@ public class OrderProcess {
 
             Distance dis = new Distance();
             dis.setDistance(gglDis.rows.get(0).elements.get(0).distance.value);
-            dis.setId(driver.getId() + "_" + origin.getId());
+            dis.setId(driver.getId() + "_" + origin.getOrder_id());
             distances.add(dis);
         }
         return distances;
@@ -97,12 +101,11 @@ public class OrderProcess {
         distances.sort(new Comparator<Distance>() {
             @Override
             public int compare(Distance o1, Distance o2) {
-                return String.valueOf(o1.getDistance()).compareTo(String.valueOf(o2.getDistance()));
+                return (int) (o1.getDistance()-o2.getDistance());
             }
         });
         int index = distances.get(0).getId().indexOf("_");
         driver = distances.get(0).getId().substring(0, index);
-//        drivers.
         return driver;
     }
     /**

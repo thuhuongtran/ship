@@ -1,18 +1,17 @@
-package com.vimensa.get_shipper.controller;
+package com.vimensa.system.controller;
 
-import com.vimensa.get_shipper.RunAPI;
-import com.vimensa.get_shipper.dao.Shipper;
-import com.vimensa.get_shipper.data.DataProcess;
-import com.vimensa.get_shipper.model.ErrorCode;
-import com.vimensa.get_shipper.model.Order;
-import com.vimensa.get_shipper.response.ShipperResponse;
-import com.vimensa.get_shipper.service.OrderProcess;
+import com.vimensa.system.RunAPI;
+import com.vimensa.system.dao.Order;
+import com.vimensa.system.dao.Shipper;
+import com.vimensa.system.data.DataProcess;
+import com.vimensa.system.model.ErrorCode;
+import com.vimensa.system.response.ShipperResponse;
+import com.vimensa.system.service.OrderProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
@@ -34,7 +33,7 @@ public class Controller {
                                       @RequestParam("to_lat")double to_lat,
                                       @RequestParam("to_log") double to_log){
         ShipperResponse resp = new ShipperResponse();
-        Order order = new Order(phone,from_lat,from_log,to_lat,to_log);
+        Order order = new Order(phone,from_lat,from_log,to_lat,to_log,0);
         try {
             String shipperPhone = OrderProcess.getDriver(order, OrderProcess.toDrivers(dao.findAllDrivers()));
             Shipper shipper = dao.getShipperByPhone(shipperPhone);
@@ -44,7 +43,7 @@ public class Controller {
             resp.setError(ErrorCode.SUCCESS);
 
             //insert into db
-            dao.newOrderShipperSystem(shipperPhone,orderID);
+            dao.addNewOrderShipperSystem(shipperPhone,orderID);
         } catch (IOException e) {
             resp.setError(ErrorCode.SYSTEM_EXCEPTION);
             logger.info(Controller.class.getName()+" io exception");

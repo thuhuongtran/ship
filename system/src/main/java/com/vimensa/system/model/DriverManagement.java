@@ -1,6 +1,6 @@
-package com.vimensa.get_shipper.model;
+package com.vimensa.system.model;
 
-import com.vimensa.get_shipper.service.KdTree;
+import com.vimensa.system.service.KdTree;
 
 import java.util.ArrayList;
 import java.util.Collection;

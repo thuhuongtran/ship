@@ -1,10 +1,10 @@
-import com.vimensa.get_shipper.RunAPI;
-import com.vimensa.get_shipper.dao.Shipper;
-import com.vimensa.get_shipper.data.DataProcess;
-import com.vimensa.get_shipper.model.Distance;
-import com.vimensa.get_shipper.model.Driver;
-import com.vimensa.get_shipper.model.Order;
-import com.vimensa.get_shipper.service.OrderProcess;
+import com.vimensa.system.RunAPI;
+import com.vimensa.system.dao.Order;
+import com.vimensa.system.dao.Shipper;
+import com.vimensa.system.data.DataProcess;
+import com.vimensa.system.model.Distance;
+import com.vimensa.system.model.Driver;
+import com.vimensa.system.service.OrderProcess;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class MainTest {
     private DataProcess dao;
     @Test
     public void getDriverTest() throws IOException {
-        Order order = new Order("O23", 21.0240197, 105.8787244, 21.0826459, 105.7722861);
+        Order order = new Order("O23", 21.0240197, 105.8787244, 21.0826459, 105.7722861,0);
         String driverID = OrderProcess.getDriver(order, OrderProcess.toDrivers(dao.findAllDrivers()));
         System.out.println(driverID);
     }
@@ -38,7 +38,7 @@ public class MainTest {
     }
     @Test
     public void getGglDistanceTest(){
-        Order order = new Order("O16", 21.1107264, 105.781135, 21.1066025, 105.8447063);
+        Order order = new Order("O16", 21.1107264, 105.781135, 21.1066025, 105.8447063,0);
 
         List<Driver> drivers = OrderProcess.getNearDrivers(OrderProcess.toDrivers(dao.findAllDrivers()),order);
         List<Distance> diss = new ArrayList();
@@ -71,7 +71,13 @@ public class MainTest {
     }
     @Test
     public void newOrderShipperSystemTest(){
-        dao.newOrderShipperSystem("056329865745","1518079433653OD");
+        dao.addNewOrderShipperSystem("056329865745","1518079433653OD");
+    }
+    @Test
+    public void getAllUrgentOrders(){
+        List<com.vimensa.system.dao.Order> ords = dao.getAllUrgentOrders();
+        System.out.println(ords.get(0).getOrder_id()+" "+ords.get(0).getFrom_lat()+" "+ords.get(0).getFrom_log()+" "+ords.get(0).getTo_lat()+" "+ords.get(0).getTo_log()+" "+ords.get(0).getWait_time());
+        assertEquals(2,ords.size());
     }
 }
 

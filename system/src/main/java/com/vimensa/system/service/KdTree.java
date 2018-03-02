@@ -1,6 +1,6 @@
-package com.vimensa.get_shipper.service;
+package com.vimensa.system.service;
 
-import com.vimensa.get_shipper.model.Driver;
+import com.vimensa.system.model.Driver;
 
 import java.util.*;
 
