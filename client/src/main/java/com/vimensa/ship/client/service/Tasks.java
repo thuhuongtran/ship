@@ -1,36 +1,17 @@
 package com.vimensa.ship.client.service;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.vimensa.ship.client.APIStart;
 import com.vimensa.ship.client.authentication.security.TokenAuthenticationService;
 import com.vimensa.ship.client.data.DataProcess;
-import com.vimensa.ship.client.request.UrgentOrderRequest;
-import com.vimensa.ship.client.response.OrderResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import static org.apache.http.protocol.HTTP.USER_AGENT;
 
 @Service
 public class Tasks {
@@ -60,19 +41,6 @@ public class Tasks {
         result = result.substring(result.indexOf("sub") + 6, result.indexOf(",") - 1);
         return result;
     }
-
-    public static String getOrderID() {
-        String str = "";
-        long timestamp = Calendar.getInstance().getTimeInMillis();
-        return str + timestamp + "OD";
-    }
-
-    public static String getTimestamp() {
-        String str = "";
-        long timestamp = Calendar.getInstance().getTimeInMillis();
-        return str + timestamp;
-    }
-
     public static double getFee(double distance) { // distance in km
         double fee = 20000;
         if (distance <= 3) {
@@ -84,43 +52,7 @@ public class Tasks {
         return fee;
     }
 
-    /**
-     * call get_driver_api
-     * response driver_phone to client
-     */
-    public static OrderResponse getDriver(UrgentOrderRequest order, String orderID, String jwt) throws IOException {
-        String url = "http://192.168.1.192:8072/getshipper";
 
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(url);
-
-// add header
-        post.setHeader("User-Agent", USER_AGENT);
-        post.setHeader("Authorization", jwt);
-
-        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-        urlParameters.add(new BasicNameValuePair("client_phone", order.getClient_phone()));
-        urlParameters.add(new BasicNameValuePair("order_id", orderID));
-        urlParameters.add(new BasicNameValuePair("from_lat", String.valueOf(order.getFrom_lat())));
-        urlParameters.add(new BasicNameValuePair("from_log", String.valueOf(order.getFrom_log())));
-        urlParameters.add(new BasicNameValuePair("to_lat", String.valueOf(order.getTo_lat())));
-        urlParameters.add(new BasicNameValuePair("to_log", String.valueOf(order.getTo_log())));
-
-        post.setEntity(new UrlEncodedFormEntity(urlParameters));
-
-        HttpResponse response = client.execute(post);
-        HttpEntity entity = response.getEntity();
-        String json = EntityUtils.toString(entity);
-        EntityUtils.consume(entity);
-        JsonObject result = (JsonObject) new JsonParser().parse(json);
-
-        OrderResponse newOrderResponse = new OrderResponse();
-        newOrderResponse.setShipper_phone(result.get("shipperPhone").getAsString());
-        newOrderResponse.setShipper_lat(result.get("shipperLat").getAsString());
-        newOrderResponse.setShipper_log(result.get("shipperLog").getAsString());
-
-        return newOrderResponse;
-    }
     public static boolean checkClientRole(String jwt){
         Claims claims = Jwts.parser().setSigningKey(TokenAuthenticationService.SECRET).parseClaimsJws(jwt).getBody();
         String body = claims.getSubject();
