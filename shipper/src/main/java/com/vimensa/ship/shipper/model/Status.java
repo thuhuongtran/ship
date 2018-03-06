@@ -14,4 +14,11 @@ public class Status {
     public static final int SHIPPER_SLEEPING = 5;
     public static final int SHIPPER_AWAKE = 6;
     public static final int SHIPPER_ON_WAY = 7;
+
+    // status in the table order_log
+    public static final int ORDER_WAITING_TAKE_OVER = 8;
+    public static final int ORDER_DELIVERING = 9;
+    public static final int ORDER_DELIVERED = 10;
+    public static final int ORDER_CANCELED = 11;
+    public static final int ORDER_DELIVERD_UNSUCCESSFULLY = 12;
 }

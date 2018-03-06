@@ -14,5 +14,9 @@ public class QueryCode {
             "WHERE `order_id`=? AND `status`=?";
     public static final String CHANGE_SHIPPER_STATUS_TO_ON_WAY_SHIPPER_SYSTEM="UPDATE `shipper_system` SET `status`=?" +
             " WHERE `phone`=?";
+    public static final String GET_ORDER_SYSTEM_BY_ORDERID = "SELECT * FROM `order_system` WHERE `order_id`=?";
+    public static final String ADD_NEW_ORDER_LOG = "INSERT INTO `order_log`(`order_id`,`timestamp`,`status`,`client_phone`," +
+            "`shipper_phone`,`adv_paym`,`mass`,`note`,`from`,`to`,`distance`,`fee`,`item_type`,`created_time`,`wait_time`)" +
+            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 }

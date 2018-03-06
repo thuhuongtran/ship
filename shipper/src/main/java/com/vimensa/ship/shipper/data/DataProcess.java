@@ -1,6 +1,7 @@
 package com.vimensa.ship.shipper.data;
 
 import com.vimensa.ship.shipper.APIStart;
+import com.vimensa.ship.shipper.dao.OrderSystem;
 import com.vimensa.ship.shipper.model.Status;
 import com.vimensa.ship.shipper.response.GetOrder;
 import com.vimensa.ship.shipper.service.LoginCode;
@@ -56,7 +57,17 @@ public class DataProcess {
         String sql = QueryCode.CHANGE_SHIPPER_STATUS_TO_ON_WAY_SHIPPER_SYSTEM;
         jdbcTemplate.update(sql, new Object[]{Status.SHIPPER_ON_WAY, phone});
     }
-    public void addNewOrderLog(){
-
+    public OrderSystem getOrderSystemByOrderID(String order_id){
+        String sql = QueryCode.GET_ORDER_SYSTEM_BY_ORDERID;
+        OrderSystem o = jdbcTemplate.queryForObject(sql, new Object[]{order_id},
+                new BeanPropertyRowMapper<>(OrderSystem.class));
+        return o;
+    }
+    public void addNewOrderLog(OrderSystem o, String shipper_phone){
+        long timestamp = Calendar.getInstance().getTimeInMillis();
+        String sql =    QueryCode.ADD_NEW_ORDER_LOG;
+        jdbcTemplate.update(sql, new Object[]{o.getOrder_id(), timestamp, Status.ORDER_WAITING_TAKE_OVER, o.getClient_phone(),
+                shipper_phone, o.getAdv_paym(), o.getMass(), o.getNote(), o.getFrom(), o.getTo(), o.getDistance(), o.getFee(), o.getItem_type(),
+                o.getTimestamp(), o.getWait_time()});
     }
 }

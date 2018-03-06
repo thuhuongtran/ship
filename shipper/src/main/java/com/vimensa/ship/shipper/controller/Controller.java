@@ -1,6 +1,7 @@
 package com.vimensa.ship.shipper.controller;
 
 import com.vimensa.ship.shipper.APIStart;
+import com.vimensa.ship.shipper.dao.OrderSystem;
 import com.vimensa.ship.shipper.data.DataProcess;
 import com.vimensa.ship.shipper.model.ErrorCode;
 import com.vimensa.ship.shipper.request.AcceptOrder;
@@ -65,15 +66,16 @@ public class Controller {
     /**
      * change status in order_shipper to SHIPPER_ACCEPT_ORDER
      * change status in shipper_system to ON_WAY
-     * add in order_log
+     * add in order_log with status = WAITING_TAKE_OVER
      * */
     @RequestMapping(value = "/acceptorder",method = RequestMethod.POST)
     @ResponseBody
     public void acceptOrder(@RequestBody AcceptOrder ao){
-        String phone = ao.getPhone();
+        String shipper_phone = ao.getPhone();
         String order_id = ao.getOrder_id();
         dao.changeStatusInOrderShipperToAccepted(order_id);
-        dao.changeShipperStatusToOnWayInShipperSystem(phone);
-
+        dao.changeShipperStatusToOnWayInShipperSystem(shipper_phone);
+        OrderSystem o = dao.getOrderSystemByOrderID(order_id);
+        dao.addNewOrderLog(o,shipper_phone);
     }
 }
