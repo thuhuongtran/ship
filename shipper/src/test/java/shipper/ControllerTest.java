@@ -19,7 +19,7 @@ public class ControllerTest {
 
     @Test
     public void countOrderShipperSystemTest(){
-        int count = dao.countOrderShipperSystem("0123659856");
+        int count = dao.countWaitAcceptingOrderShipperSystem("0123659856");
         System.out.println(count);
     }
     @Test
@@ -31,5 +31,15 @@ public class ControllerTest {
     @Test
     public void shipperLoginLogTest(){
         dao.shipperLoginLog("01296538687");
+    }
+    @Test
+    public void changeStatusToAcceptedInOrderShipper(){
+        String order_id = "test1OD";
+        dao.changeStatusInOrderShipperToAccepted(order_id);
+    }
+    @Test
+    public void changeShipperStatusToOnWayShipperSystem(){
+        String phone = "01232323232";
+        dao.changeShipperStatusToOnWayInShipperSystem(phone);
     }
 }

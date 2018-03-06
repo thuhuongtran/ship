@@ -27,14 +27,14 @@ public class DataProcess {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public Integer countOrderShipperSystem(String shipper_phone){
-        String sql = QueryCode.COUNT_ORDER_SHIPPER_SYSTEM_BY_PHONE;
-        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{shipper_phone}, Integer.class);
+    public Integer countWaitAcceptingOrderShipperSystem(String shipper_phone){
+        String sql = QueryCode.COUNT_WAIT_ACCEPTING_ORDER_SHIPPER_SYSTEM_BY_PHONE;
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{shipper_phone, Status.WAIT_SHIPPER_DECISION}, Integer.class);
         return count;
     }
     public GetOrder getDetailOrderSystem(String order_id){
         String sql = QueryCode.GET_DETAIL_ORDER_SYSTEM;
-        GetOrder ord = jdbcTemplate.queryForObject(sql, new Object[]{order_id},
+        GetOrder ord = jdbcTemplate.queryForObject(sql, new Object[]{order_id, Status.WAIT_SHIPPER_DECISION},
                 new BeanPropertyRowMapper<>(GetOrder.class));
         return ord;
     }
@@ -48,5 +48,15 @@ public class DataProcess {
         String time_in = Tasks.formatDate(new Date());
         jdbcTemplate.update(sql, new Object[]{phone, time_in, timestamp, Status.SHIPPER_ROLE});
     }
+    public void changeStatusInOrderShipperToAccepted(String order_id){
+        String sql = QueryCode.CHANGE_STATUS_TO_ACCEPTED_IN_ORDER_SHIPPER;
+        jdbcTemplate.update(sql, new Object[]{Status.SHIPPER_ACCEPT_ORDER,order_id,Status.WAIT_SHIPPER_DECISION});
+    }
+    public void changeShipperStatusToOnWayInShipperSystem(String phone){
+        String sql = QueryCode.CHANGE_SHIPPER_STATUS_TO_ON_WAY_SHIPPER_SYSTEM;
+        jdbcTemplate.update(sql, new Object[]{Status.SHIPPER_ON_WAY, phone});
+    }
+    public void addNewOrderLog(){
 
+    }
 }
