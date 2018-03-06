@@ -53,7 +53,7 @@ public class Controller {
      * */
     @RequestMapping(value = "/urgentorder",method = RequestMethod.POST)
     public CommonResponse urgentOrder(@RequestBody UrgentOrderRequest ord){
-        dao.urgentOrderSystem(ord);
+        dao.addNewUrgentOrderSystem(ord);
         CommonResponse res = new CommonResponse();
         res.setError(ErrorCode.SUCCESS);
         return res;
@@ -65,7 +65,7 @@ public class Controller {
      * */
     @RequestMapping(value = "/waitorder",method = RequestMethod.POST)
     public CommonResponse waitOrder(@RequestBody WaitOrderRequest ord){
-        dao.waitOrderSystem(ord);
+        dao.addNewWaitOrderSystem(ord);
         CommonResponse res = new CommonResponse();
         res.setError(ErrorCode.SUCCESS);
         return res;

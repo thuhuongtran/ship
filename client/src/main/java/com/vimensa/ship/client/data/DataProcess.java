@@ -53,7 +53,7 @@ public class DataProcess {
         return shipper;
     }
 
-    public void urgentOrderSystem(UrgentOrderRequest ord) {
+    public void addNewUrgentOrderSystem(UrgentOrderRequest ord) {
         long timestamp = Calendar.getInstance().getTimeInMillis();
         String orderID = timestamp+"OD";
         double fee = Tasks.getFee(ord.getDistance());
@@ -64,7 +64,7 @@ public class DataProcess {
                 ord.getFrom(), ord.getTo(), ord.getDistance(), fee, ord.getItem_type(),timestamp});
     }
 
-    public void waitOrderSystem(WaitOrderRequest ord) {
+    public void addNewWaitOrderSystem(WaitOrderRequest ord) {
         long timestamp = Calendar.getInstance().getTimeInMillis();
         String orderID = timestamp+"OD";
         double fee = Tasks.getFee(ord.getDistance());

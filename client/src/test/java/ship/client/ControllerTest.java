@@ -42,8 +42,8 @@ public class ControllerTest {
     @Test
     public void addUrgentOrderSystemTest(){
         UrgentOrderRequest ord = new UrgentOrderRequest(20.63236,105.56985,21.56326,104.3659,
-                "09635236532",1,"20000",1,"", "point A","point B",3.5);
-        dao.urgentOrderSystem(ord);
+                "test4",1,"20000",1,"", "point A","point B",3.5);
+        dao.addNewUrgentOrderSystem(ord);
     }
 
 }
