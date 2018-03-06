@@ -71,13 +71,33 @@ public class MainTest {
     }
     @Test
     public void newOrderShipperSystemTest(){
-        dao.addNewOrderShipperSystem("056329865745","1518079433653OD");
+        dao.addNewOrderShipperSystem("test1","test1OD");
     }
     @Test
     public void getAllUrgentOrders(){
         List<com.vimensa.system.dao.Order> ords = dao.getAllUrgentOrders();
         System.out.println(ords.get(0).getOrder_id()+" "+ords.get(0).getFrom_lat()+" "+ords.get(0).getFrom_log()+" "+ords.get(0).getTo_lat()+" "+ords.get(0).getTo_log()+" "+ords.get(0).getWait_time());
         assertEquals(2,ords.size());
+    }
+    @Test
+    public void getEarliestDeliveryNeededUrgentOrder(){
+        Order o = dao.getEarliestDeliveryNeededUrgentOrder();
+        assertEquals("1520307682080", String.valueOf(o.getWait_time()));
+    }
+    @Test
+    public void deleteHandledOrder(){
+        String order_id = "1520307682080OD";
+        dao.deleteHandledOrderSystem(order_id);
+        Order o = dao.getEarliestDeliveryNeededUrgentOrder();
+        assertEquals(false,o.getOrder_id().contains(order_id));
+    }
+    @Test
+    public void changeStatusInOrderSystemTest(){
+        dao.changeStatusToWaitShipperDecisionOrderSystem("1520317605858OD");
+    }
+    @Test
+    public void changeWaitOrderStatusToUrgentTest(){
+        dao.changeWaitOrderStatusToUrgentOrderSystem();
     }
 }
 

@@ -7,8 +7,10 @@ import com.vimensa.system.model.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +34,8 @@ public class DataProcess {
      * get drivers from shipper_system
      * */
     public List<Shipper> findAllDrivers(){
-        String sql = QueryCode.GET_ALL_DRIVERS;
-        List<Shipper> shippers = jdbcTemplate.query(sql,
+        String sql = QueryCode.GET_ALL_AWAKE_DRIVERS;
+        List<Shipper> shippers = jdbcTemplate.query(sql,new Object[]{Status.SHIPPER_AWAKE},
                 new BeanPropertyRowMapper<>(Shipper.class));
         return shippers;
     }
@@ -63,5 +65,38 @@ public class DataProcess {
             }
         });
         return ords;
+    }
+    public Order getEarliestDeliveryNeededUrgentOrder(){
+        String sql = QueryCode.GET_EARLIEST_DELIVERY_NEEDED_URGENT_ORDER;
+        return jdbcTemplate.query(sql,new Object[]{Status.URGENT_ORDER}, new ResultSetExtractor<Order>() {
+            @Override
+            public Order extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+                if (rs.next()) {
+                    Order o = new Order();
+                    o.setOrder_id(rs.getString(1));
+                    o.setFrom_lat(rs.getDouble(2));
+                    o.setFrom_log(rs.getDouble(3));
+                    o.setTo_lat(rs.getDouble(4));
+                    o.setTo_log(rs.getDouble(5));
+                    o.setWait_time(rs.getLong(6));
+                    return o;
+                }
+                return null;
+            }
+        });
+
+    }
+    public void deleteHandledOrderSystem(String order_id){
+        String sql = QueryCode.DELETE_HANDLED_ORDER_SYSTEM;
+        jdbcTemplate.update(sql, new Object[]{order_id});
+    }
+    public void changeStatusToWaitShipperDecisionOrderSystem(String order_id){
+        String sql = QueryCode.CHANGE_STATUS_TO_WAIT_SHIPPER_DECISION_ORDER_SYSTEM;
+        jdbcTemplate.update(sql, new Object[]{Status.WAIT_SHIPPER_DECISION, order_id});
+    }
+    public void changeWaitOrderStatusToUrgentOrderSystem(){
+        String sql = QueryCode.CHANGE_WAIT_ORDER_STATUS_TO_URGENT_ORDER_SYSTEM;
+        jdbcTemplate.update(sql, new Object[]{Status.URGENT_ORDER, Status.WAIT_ORDER});
     }
 }

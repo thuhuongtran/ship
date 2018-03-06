@@ -3,6 +3,8 @@ import com.vimensa.system.service.Tasks;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -34,12 +36,26 @@ public class TasksTest {
         oli.add(o9);
         oli.add(o10);
         oli.add(o11);
-        Tasks t = new Tasks();
-        t.sortOrdersByWaittingTime(oli);
+        sortOrdersByWaittingTime(oli);
         for(int i=0;i<oli.size();i++){
             System.out.println(oli.get(i).getWait_time());
         }
         assertEquals(89665, oli.get(10).getWait_time());
 
+    }
+    @Test
+    public void compareTimestampTest(){
+        long t1 = Calendar.getInstance().getTimeInMillis();
+        System.out.println(t1); //1520304548106
+        //1520304574003
+        assertEquals(true,"1520304574003".compareTo("1520304548106"));
+    }
+    public void sortOrdersByWaittingTime(List<Order> oli){
+        oli.sort(new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return (int) (o1.getWait_time()-o2.getWait_time());
+            }
+        });
     }
 }

@@ -2,7 +2,6 @@ package com.vimensa.system.service;
 
 import com.vimensa.system.dao.Order;
 import com.vimensa.system.data.DataProcess;
-import com.vimensa.system.model.Distance;
 import com.vimensa.system.security.TokenAuthenticationService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,9 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 
 @Component
 public class Tasks {
@@ -34,26 +31,35 @@ public class Tasks {
     /**
      * find the nearest shipper
      * add in order_shipper db
+     * then change status in order_system to wait_shipper_decision handled order
      * */
-    @Scheduled(fixedRate = 60000)
-    public void handleOrders(){
-        log.info("The time is now {}", dateFormat.format(new Date()));
-        List<Order> oLi = dao.getAllUrgentOrders();
-        for(int i = 0;i<oLi.size();i++){
+    @Scheduled(fixedRate = 45000)
+    public void handleUrgentOrders(){
+        log.info("Handle urgent orders: The time is now {}", dateFormat.format(new Date()));
+        Order ord = dao.getEarliestDeliveryNeededUrgentOrder();
+        if(ord==null){
+            log.info("The order is over.");
+        }
+        else{
             try {
-                OrderProcess.getDriver(oLi.get(i),OrderProcess.toDrivers(dao.findAllDrivers()));
+                String shipperPhone= OrderProcess.getDriver(ord, OrderProcess.toDrivers(dao.findAllDrivers()));
+                dao.addNewOrderShipperSystem(shipperPhone,ord.getOrder_id());
+                dao.changeStatusToWaitShipperDecisionOrderSystem(ord.getOrder_id());
+                log.info("Handle urgent orders: successfully.");
             } catch (IOException e) {
+                log.info(" IO exception: call ggl to get distance.");
                 e.printStackTrace();
             }
         }
 
     }
-    public void sortOrdersByWaittingTime(List<Order> oli){
-        oli.sort(new Comparator<Order>() {
-            @Override
-            public int compare(Order o1, Order o2) {
-                return (int) (o1.getWait_time()-o2.getWait_time());
-            }
-        });
+    /**
+     * check handle-day of wait_order then turn to urgent_order
+     * */
+    @Scheduled(fixedRate = 24*60*60*1000)
+    public void handleWaitOrder(){
+        log.info("The time is now {}", dateFormat.format(new Date()));
+        dao.changeWaitOrderStatusToUrgentOrderSystem();
+        log.info("Wait order to urgent after each day: successfully.");
     }
 }
