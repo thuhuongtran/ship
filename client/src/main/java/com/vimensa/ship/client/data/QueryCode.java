@@ -2,8 +2,8 @@ package com.vimensa.ship.client.data;
 
 public class QueryCode {
     public static final String REGISTER_CLIENT =
-            "INSERT INTO `client`(`phone`,`code`,`enabled`) VALUES(?,?,?)";
-    public static final String LOGIN_LOG = "INSERT INTO `user_log`(`phone`,`time_in`,`timestamp`,`role`) VALUES(?,?,?,?)";
+            "INSERT INTO `client`(`phone`,`code`,`enabled`,`cli_id`) VALUES(?,?,?,?)";
+    public static final String LOGIN_LOG = "INSERT INTO `user_log`(`user_id`,`time_in`,`timestmp`,`role`) VALUES(?,?,?,?)";
     public static final String GET_CLIENT_BY_PHONE =
             "SELECT * FROM `client` WHERE `phone` =?";
     public static final String GET_SHIPPER_BY_PHONE =

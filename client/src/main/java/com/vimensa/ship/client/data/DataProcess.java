@@ -32,13 +32,14 @@ public class DataProcess {
 
     public void registerClient(String phone) {
         String sql = QueryCode.REGISTER_CLIENT;
-        jdbcTemplate.update(sql, new Object[]{phone, LoginCode.getCode(),Status.CLIENT_UNOFFICIAL});
+        String cli_id = Calendar.getInstance().getTimeInMillis()+"cli";
+        jdbcTemplate.update(sql, new Object[]{phone, LoginCode.getCode(),Status.CLIENT_UNOFFICIAL,cli_id});
     }
-    public void clientLoginLog(String phone){
+    public void clientLoginLog(String user_id){
         String sql = QueryCode.LOGIN_LOG;
         long timestamp = Calendar.getInstance().getTimeInMillis();
         String time_in = Tasks.formatDate(new java.util.Date());
-        jdbcTemplate.update(sql, new Object[]{phone, time_in, timestamp, Status.CLIENT_ROLE});
+        jdbcTemplate.update(sql, new Object[]{user_id, time_in, timestamp, Status.CLIENT_ROLE});
     }
 
     public Client getClientByPhone(String phone) {
@@ -76,3 +77,4 @@ public class DataProcess {
     }
 
 }
+

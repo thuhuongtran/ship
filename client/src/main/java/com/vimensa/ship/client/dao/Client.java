@@ -7,7 +7,8 @@ public class Client {
     private String mail;
     private String place;
     private String enabled;
-    private String timestamp;
+    private String cli_id;
+    private String avatar;
 
     public String getPlace() {
         return place;
@@ -17,12 +18,20 @@ public class Client {
         this.place = place;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getCli_id() {
+        return cli_id;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setCli_id(String cli_id) {
+        this.cli_id = cli_id;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getPhone() {

@@ -1,11 +1,13 @@
 package com.vimensa.ship.client.controller;
 
 import com.vimensa.ship.client.APIStart;
+import com.vimensa.ship.client.dao.Client;
 import com.vimensa.ship.client.data.DataProcess;
 import com.vimensa.ship.client.model.ErrorCode;
 import com.vimensa.ship.client.request.Phone;
 import com.vimensa.ship.client.request.UrgentOrderRequest;
 import com.vimensa.ship.client.request.WaitOrderRequest;
+import com.vimensa.ship.client.response.ClientInfoRes;
 import com.vimensa.ship.client.response.CommonResponse;
 import com.vimensa.ship.client.service.Tasks;
 import org.slf4j.Logger;
@@ -38,10 +40,11 @@ public class Controller {
     }
 
     @RequestMapping(value = "/sessionLog",method = RequestMethod.POST)
-    public CommonResponse sessionLog(@RequestBody Phone p){
-        CommonResponse res = new CommonResponse();
+    public ClientInfoRes sessionLog(@RequestBody Phone p){
         String phone = p.getPhone();
-        dao.clientLoginLog(phone);
+        Client cli = dao.getClientByPhone(phone);
+        dao.clientLoginLog(cli.getCli_id());
+        ClientInfoRes res = new ClientInfoRes(phone, cli.getCode(), cli.getName(), cli.getMail(), cli.getPlace(), cli.getCli_id(), cli.getAvatar());
         res.setError(ErrorCode.SUCCESS);
         logger.info(Controller.class.getName()+" session log successfully.");
         return res;
