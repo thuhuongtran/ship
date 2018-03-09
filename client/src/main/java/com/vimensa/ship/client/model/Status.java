@@ -8,4 +8,6 @@ public class Status {
     public static final int URGENT_ORDER = 2;
 
     public static final String CLIENT_ROLE = "client";
+    public static final int UNSUCCESSFUL = 13;
+    public static final int SUCCESSFUL = 14;
 }

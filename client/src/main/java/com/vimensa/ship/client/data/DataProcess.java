@@ -54,26 +54,32 @@ public class DataProcess {
         return shipper;
     }
 
-    public void addNewUrgentOrderSystem(UrgentOrderRequest ord) {
+    public void addNewUrgentOrder(UrgentOrderRequest ord, String od_id) {
         long timestamp = Calendar.getInstance().getTimeInMillis();
-        String orderID = timestamp+"OD";
         double fee = Tasks.getFee(ord.getDistance());
-        String sql = QueryCode.ADD_NEW_ORDER_SYSTEM;
-        jdbcTemplate.update(sql,new Object[]{
-            orderID, ord.getFrom_lat(),ord.getFrom_log(), ord.getTo_lat(), ord.getTo_log(), timestamp, Status.URGENT_ORDER,
-                    ord.getClient_phone(),ord.getAdv_paym(), ord.getMass(), ord.getNote(),
-                ord.getFrom(), ord.getTo(), ord.getDistance(), fee, ord.getItem_type(),timestamp});
+        String sql = QueryCode.ADD_NEW_ORDER;
+        jdbcTemplate.update(sql,new Object[]{od_id,timestamp,ord.getCli_id(),ord.getAdv_paym(),ord.getItem_type(),ord.getNote()
+                ,ord.getFrom(),ord.getFrom_lat(),ord.getFrom_log(),ord.getCustm_phone(),ord.getDistance(),fee,timestamp,Status.UNSUCCESSFUL
+         });
     }
 
-    public void addNewWaitOrderSystem(WaitOrderRequest ord) {
+    public void addNewWaitOrder(WaitOrderRequest ord,String od_id) {
         long timestamp = Calendar.getInstance().getTimeInMillis();
-        String orderID = timestamp+"OD";
         double fee = Tasks.getFee(ord.getDistance());
+        String sql = QueryCode.ADD_NEW_ORDER;
+        jdbcTemplate.update(sql,new Object[]{od_id,timestamp,ord.getCli_id(),ord.getAdv_paym(),ord.getItem_type(),ord.getNote()
+                ,ord.getFrom(),ord.getFrom_lat(),ord.getFrom_log(),ord.getCustm_phone(),ord.getDistance(),fee,ord.getWait_time(),Status.UNSUCCESSFUL
+        });
+    }
+    public void addUrgentOrderSystem(String od_id){
+        long timestmp = Calendar.getInstance().getTimeInMillis();
         String sql = QueryCode.ADD_NEW_ORDER_SYSTEM;
-        jdbcTemplate.update(sql,new Object[]{
-                orderID, ord.getFrom_lat(),ord.getFrom_log(), ord.getTo_lat(), ord.getTo_log(), timestamp, Status.WAIT_ORDER,
-                ord.getClient_phone(),ord.getAdv_paym(), ord.getMass(), ord.getNote(),
-                ord.getFrom(), ord.getTo(), ord.getDistance(), fee, ord.getItem_type(),ord.getWait_time()});
+        jdbcTemplate.update(sql, new Object[]{od_id, timestmp, Status.URGENT_ORDER});
+    }
+    public void addWaitOrderSystem(String od_id){
+        long timestmp = Calendar.getInstance().getTimeInMillis();
+        String sql = QueryCode.ADD_NEW_ORDER_SYSTEM;
+        jdbcTemplate.update(sql, new Object[]{od_id, timestmp, Status.WAIT_ORDER});
     }
 
 }

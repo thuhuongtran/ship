@@ -9,9 +9,10 @@ public class QueryCode {
     public static final String GET_SHIPPER_BY_PHONE =
             "SELECT * FROM `shipper` WHERE `phone` =?";
 
-    public static final String ADD_NEW_ORDER_SYSTEM =
-            "INSERT INTO `order_system`(`order_id`,`from_lat`,`from_log`,`to_lat`,`to_log`,`timestamp`,`status`," +
-                    "`client_phone`,`adv_paym`,`mass`,`note`,`from`,`to`,`distance`,`fee`,`item_type`,`wait_time`)" +
-                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String ADD_NEW_ORDER = "INSERT INTO `order`(`od_id`,`created_time`,`cli_id`,`adv_paym`," +
+            "`item_type`,`note`,`from`,`from_lat`,`from_log`,`custm_phone`,`distance`,`fee`,`wait_time`,`status`) " +
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String ADD_NEW_ORDER_SYSTEM = "INSERT INTO `order_system`(`od_id`,`timestmp`,`status`)" +
+            "VALUES(?,?,?)";
 
 }

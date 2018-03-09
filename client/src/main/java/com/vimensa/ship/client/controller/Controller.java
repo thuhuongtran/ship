@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
+
 @RestController
 public class Controller {
     private final Logger logger = LoggerFactory.getLogger(APIStart.class);
@@ -51,24 +53,30 @@ public class Controller {
     }
     /**
      * urgent order
+     * insert into order with status = unsuccessful
      * insert into order_system with status = urgent_order
      * @param: urgent-order-info
      * */
     @RequestMapping(value = "/urgentorder",method = RequestMethod.POST)
     public CommonResponse urgentOrder(@RequestBody UrgentOrderRequest ord){
-        dao.addNewUrgentOrderSystem(ord);
+        String od_id = Calendar.getInstance().getTimeInMillis()+"OD";
+        dao.addNewUrgentOrder(ord,od_id);
+        dao.addUrgentOrderSystem(od_id);
         CommonResponse res = new CommonResponse();
         res.setError(ErrorCode.SUCCESS);
         return res;
     }
     /**
      * wait order
+     * insert into order with status = unsuccessful
      * insert into order_system with status = wait_order
      * @param: wait-order-info
      * */
     @RequestMapping(value = "/waitorder",method = RequestMethod.POST)
     public CommonResponse waitOrder(@RequestBody WaitOrderRequest ord){
-        dao.addNewWaitOrderSystem(ord);
+        String od_id = Calendar.getInstance().getTimeInMillis()+"OD";
+        dao.addNewWaitOrder(ord,od_id);
+        dao.addWaitOrderSystem(od_id);
         CommonResponse res = new CommonResponse();
         res.setError(ErrorCode.SUCCESS);
         return res;
