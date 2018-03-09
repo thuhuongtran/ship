@@ -2,16 +2,20 @@ package com.vimensa.ship.shipper.controller;
 
 import com.vimensa.ship.shipper.APIStart;
 import com.vimensa.ship.shipper.dao.OrderSystem;
+import com.vimensa.ship.shipper.dao.Shipper;
 import com.vimensa.ship.shipper.data.DataProcess;
 import com.vimensa.ship.shipper.model.ErrorCode;
 import com.vimensa.ship.shipper.request.AcceptOrder;
 import com.vimensa.ship.shipper.request.Phone;
 import com.vimensa.ship.shipper.response.CommonResponse;
 import com.vimensa.ship.shipper.response.GetOrder;
+import com.vimensa.ship.shipper.response.ShipperInfoRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.ClientInfoStatus;
 
 @RestController
 public class Controller {
@@ -35,17 +39,18 @@ public class Controller {
         return res;
     }
     @RequestMapping(value = "/sessionLog",method = RequestMethod.POST)
-    public CommonResponse sessionLog(@RequestBody Phone p){
-        CommonResponse res = new CommonResponse();
+    public ShipperInfoRes sessionLog(@RequestBody Phone p){
         String phone = p.getPhone();
-        dao.shipperLoginLog(phone);
+        Shipper s = dao.getShipperByPhone(phone);
+        dao.shipperLoginLog(s.getShp_id());
+        ShipperInfoRes res = new ShipperInfoRes(s.getPhone(), s.getCode(), s.getName(), s.getMail(), s.getShp_id(), s.getStar(), s.getAvatar());
         res.setError(ErrorCode.SUCCESS);
         logger.info(Controller.class.getName()+" session log successfully.");
         return res;
     }
 
     /**
-     * get new order from order_shipper on db system ------NOT TESTED YET
+     * get new order from order_shipper on db system ------NOT TESTED YET -WRONG
      * call each 45s time.
      * */
     @RequestMapping(value = "/getorder",method = RequestMethod.POST)
@@ -67,6 +72,7 @@ public class Controller {
      * change status in order_shipper to SHIPPER_ACCEPT_ORDER
      * change status in shipper_system to ON_WAY
      * add in order_log with status = WAITING_TAKE_OVER
+     *  NOT DONE - RESPONSE ------------------------------------------------------
      * */
     @RequestMapping(value = "/acceptorder",method = RequestMethod.POST)
     @ResponseBody

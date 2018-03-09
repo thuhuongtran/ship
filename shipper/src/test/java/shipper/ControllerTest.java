@@ -54,5 +54,11 @@ public class ControllerTest {
         OrderSystem o = dao.getOrderSystemByOrderID("1520324183829OD");
         dao.addNewOrderLog(o,"01232323232");
     }
+    @Test
+    public void registerTest(){
+        String phone = "08965326532";
+        dao.registerNewShipper(phone);
+
+    }
 }
 

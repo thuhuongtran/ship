@@ -2,6 +2,7 @@ package com.vimensa.ship.shipper.data;
 
 import com.vimensa.ship.shipper.APIStart;
 import com.vimensa.ship.shipper.dao.OrderSystem;
+import com.vimensa.ship.shipper.dao.Shipper;
 import com.vimensa.ship.shipper.model.Status;
 import com.vimensa.ship.shipper.response.GetOrder;
 import com.vimensa.ship.shipper.service.LoginCode;
@@ -41,7 +42,8 @@ public class DataProcess {
     }
     public void registerNewShipper(String phone){
         String sql = QueryCode.REGISTER_SHIPPER;
-        jdbcTemplate.update(sql, new Object[]{phone, LoginCode.getCode(),Status.UNENABLED_SHIPPER});
+        String shp_id = Calendar.getInstance().getTimeInMillis() + "shp";
+        jdbcTemplate.update(sql, new Object[]{phone, LoginCode.getCode(),Status.UNENABLED_SHIPPER,shp_id});
     }
     public void shipperLoginLog(String phone){
         String sql = QueryCode.LOGIN_LOG;
@@ -69,5 +71,11 @@ public class DataProcess {
         jdbcTemplate.update(sql, new Object[]{o.getOrder_id(), timestamp, Status.ORDER_WAITING_TAKE_OVER, o.getClient_phone(),
                 shipper_phone, o.getAdv_paym(), o.getMass(), o.getNote(), o.getFrom(), o.getTo(), o.getDistance(), o.getFee(), o.getItem_type(),
                 o.getTimestamp(), o.getWait_time()});
+    }
+    public Shipper getShipperByPhone(String phone){
+        String sql = QueryCode.GET_SHIPPER_BY_PHONE;
+        Shipper s = jdbcTemplate.queryForObject(sql, new Object[]{phone},
+                new BeanPropertyRowMapper<>(Shipper.class));
+        return s;
     }
 }
