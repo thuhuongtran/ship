@@ -1,19 +1,15 @@
 package com.vimensa.ship.admin.controller;
 
 import com.vimensa.ship.admin.APIStart;
+import com.vimensa.ship.admin.dao.Admin;
 import com.vimensa.ship.admin.data.DataProcess;
 import com.vimensa.ship.admin.model.ErrorCode;
 import com.vimensa.ship.admin.request.*;
-import com.vimensa.ship.admin.response.CommonResponse;
-import com.vimensa.ship.admin.response.GetClientCodeRes;
-import com.vimensa.ship.admin.response.GetNewShipperRes;
-import com.vimensa.ship.admin.response.GetShipperCodeRes;
+import com.vimensa.ship.admin.response.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Calendar;
 
 @RestController
 public class Controller {
@@ -33,9 +29,8 @@ public class Controller {
         String shipperPhone = newShipper.getShipper_phone();
         String name = newShipper.getName();
         String mail = newShipper.getMail();
-        long timestamp = Calendar.getInstance().getTimeInMillis();
-        dao.enableNewRegisterShipper(shipperPhone, name, mail, String.valueOf(timestamp));
-        dao.addNewShipperInUserRole(shipperPhone);
+        dao.enableNewRegisterShipper(shipperPhone, name, mail);
+        dao.addNewShipperInUserRole(dao.getShipperIDByPhone(shipperPhone));
         res.setError(ErrorCode.SUCCESS);
         logger.info(Controller.class.getName()+" accept new register shipper successfully.");
         return res;
@@ -52,9 +47,8 @@ public class Controller {
         String clientPhone = client.getClient_phone();
         String name = client.getName();
         String mail = client.getMail();
-        long timestamp = Calendar.getInstance().getTimeInMillis();
-        dao.enableNewRegisterClient(clientPhone, name, mail, String.valueOf(timestamp));
-        dao.addNewClientInUserRole(clientPhone);
+        dao.enableNewRegisterClient(clientPhone, name, mail);
+        dao.addNewClientInUserRole(dao.getClientIDByPhone(clientPhone));
         res.setError(ErrorCode.SUCCESS);
         logger.info(Controller.class.getName()+" accept new register client successfully.");
         return res;
@@ -97,15 +91,19 @@ public class Controller {
     public GetNewShipperRes getNewShipper(){
         GetNewShipperRes res = new GetNewShipperRes();
         res.setShipperLi(dao.getAllUnabledShippers());
+        res.setClientLi(dao.getAllUnabledClients());
+        res.setError(ErrorCode.SUCCESS);
+        logger.info(Controller.class.getName()+" get new register.");
         return res;
     }
     @RequestMapping(value = "/sessionLog",method = RequestMethod.POST)
-    public CommonResponse sessionLog(@RequestBody Phone p){
-        CommonResponse res = new CommonResponse();
+    public AdminInfo sessionLog(@RequestBody Phone p){
         String phone = p.getPhone();
-        dao.adminLoginLog(phone);
-        res.setError(ErrorCode.SUCCESS);
+        Admin a = dao.getAdminByPhone(phone);
+        AdminInfo ares = new AdminInfo(a.getAdm_id(), a.getPhone(), a.getCode(), a.getName(), a.getMail(), a.getAvatar());
+        dao.adminLoginLog(a.getAdm_id());
+        ares.setError(ErrorCode.SUCCESS);
         logger.info(Controller.class.getName()+" session log successfully.");
-        return res;
+        return ares;
     }
 }

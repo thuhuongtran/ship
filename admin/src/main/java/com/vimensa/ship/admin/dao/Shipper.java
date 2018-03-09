@@ -7,8 +7,9 @@ public class Shipper
     private String name;
     private String mail;
     private int enabled;
-    private String timestamp;
+    private String shp_id;
     private int star;
+    private String avatar;
 
     public String getPhone() {
         return phone;
@@ -50,12 +51,20 @@ public class Shipper
         this.enabled = enabled;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getShp_id() {
+        return shp_id;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setShp_id(String shp_id) {
+        this.shp_id = shp_id;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public int getStar() {

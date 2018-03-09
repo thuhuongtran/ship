@@ -24,16 +24,15 @@ public class ControllerTest {
     public void enableRegisterShipperTest(){
         String name = "hello2018";
         String mail = "hello20118@mail.com";
-        long timestamp = Calendar.getInstance().getTimeInMillis();
         String phone = "01296537687";
-        dao.enableNewRegisterShipper(phone, name, mail, String.valueOf(timestamp));
+        dao.enableNewRegisterShipper(phone, name, mail);
         Shipper shipper = dao.getShipperByPhone(phone);
         assertEquals(phone, shipper.getPhone());
     }
     @Test
     public void addIntoUserRole(){
-        String phone = "01296537687";
-        dao.addNewShipperInUserRole(phone);
+        String phone = "08965326532";
+        dao.addNewShipperInUserRole(dao.getShipperIDByPhone(phone));
     }
     @Test
     public void getAllUnenabledShipper(){
@@ -42,5 +41,11 @@ public class ControllerTest {
             System.out.println(li.get(i));
         }
         assertEquals(16,li.size());
+    }
+    @Test
+    public void getShipperIDTest(){
+        String phone = "08965326532";
+        String shp_id = dao.getShipperIDByPhone(phone);
+        assertEquals("1520580745080shp",shp_id);
     }
 }

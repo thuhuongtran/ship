@@ -1,14 +1,41 @@
-package com.vimensa.ship.admin.dao;
+package com.vimensa.ship.admin.response;
 
-public class Client {
+public class AdminInfo {
+    private String adm_id;
     private String phone;
     private String code;
     private String name;
     private String mail;
-    private String place;
-    private int enabled;
-    private String cli_id;
     private String avatar;
+    private int error;
+
+    public AdminInfo(String adm_id, String phone, String code, String name, String mail, String avatar) {
+        this.adm_id = adm_id;
+        this.phone = phone;
+        this.code = code;
+        this.name = name;
+        this.mail = mail;
+        this.avatar = avatar;
+    }
+
+    public AdminInfo() {
+    }
+
+    public int getError() {
+        return error;
+    }
+
+    public void setError(int error) {
+        this.error = error;
+    }
+
+    public String getAdm_id() {
+        return adm_id;
+    }
+
+    public void setAdm_id(String adm_id) {
+        this.adm_id = adm_id;
+    }
 
     public String getPhone() {
         return phone;
@@ -40,30 +67,6 @@ public class Client {
 
     public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public int getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(int enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getCli_id() {
-        return cli_id;
-    }
-
-    public void setCli_id(String cli_id) {
-        this.cli_id = cli_id;
     }
 
     public String getAvatar() {
