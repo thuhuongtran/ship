@@ -5,10 +5,7 @@ import com.vimensa.system.RunAPI;
 import com.vimensa.system.dao.Order;
 import com.vimensa.system.dao.Shipper;
 import com.vimensa.system.data.DataProcess;
-import com.vimensa.system.model.Distance;
-import com.vimensa.system.model.Driver;
-import com.vimensa.system.model.DriverManagement;
-import com.vimensa.system.model.GoogleDistance;
+import com.vimensa.system.model.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -28,6 +25,7 @@ public class OrderProcess {
     private final static Logger logger = LoggerFactory.getLogger(RunAPI.class);
     @Autowired
     private static DataProcess dao;
+
     /**
      * call Kd-Tree.nearestNeighbor to return 5 nearest drivers
      *
@@ -85,6 +83,7 @@ public class OrderProcess {
         }
         return distances;
     }
+
 
     /**
      * sort list of real distance
