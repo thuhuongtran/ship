@@ -20,7 +20,8 @@ public class WaitOrderRequest {
     public WaitOrderRequest() {
     }
 
-    public WaitOrderRequest(String cli_id, String adv_paym, int item_type, String note, String from, double from_lat, double from_log, String custm_phone, List<Destination> toLi, double distance, String wait_time) {
+    public WaitOrderRequest(String cli_id, String adv_paym, int item_type, String note, String from, double from_lat,
+                            double from_log, String custm_phone, List<Destination> toLi, double distance, String wait_time) {
         this.cli_id = cli_id;
         this.adv_paym = adv_paym;
         this.item_type = item_type;

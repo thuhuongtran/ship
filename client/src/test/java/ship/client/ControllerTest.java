@@ -5,7 +5,9 @@ import com.vimensa.ship.client.dao.Client;
 import com.vimensa.ship.client.dao.Shipper;
 import com.vimensa.ship.client.data.DataProcess;
 import com.vimensa.ship.client.model.Destination;
+import com.vimensa.ship.client.model.ItemType;
 import com.vimensa.ship.client.request.UrgentOrderRequest;
+import com.vimensa.ship.client.request.WaitOrderRequest;
 import com.vimensa.ship.client.service.LoginCode;
 import com.vimensa.ship.client.service.Tasks;
 import org.junit.Test;
@@ -52,5 +54,19 @@ public class ControllerTest {
                 "09658326541",dli,3.5);
         dao.addNewUrgentOrder(ord,od_id);
     }
-
+    @Test
+    public void addUrgentOrderSystemTest(){
+        String od_id = Calendar.getInstance().getTimeInMillis() + "OD";
+        dao.addUrgentOrderSystem(od_id);
+    }
+    @Test
+    public void addNewWaitOrderTest(){
+        String od_id = Calendar.getInstance().getTimeInMillis() + "OD";
+        Destination d = new Destination(21.1083502, 105.7869331, "House B");
+        List<Destination> dli = new ArrayList<>();
+        dli.add(d);
+        WaitOrderRequest o = new WaitOrderRequest("1520580562945cli", "20000", ItemType.OTHERS, "", "House A", 20.63236, 105.56985,
+                "06935623154", dli, 2.5,"1521430233000");
+        dao.addNewWaitOrder(o,od_id);
+    }
 }
