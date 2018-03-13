@@ -53,14 +53,14 @@ public class DataProcess {
         return client;
     }
 
-    public void addNewShipperInUserRole(String user_id) {
+    public void addNewShipperInUserRole(String user_id, String phone) {
         String sql = QueryCode.ADD_INTO_USER_ROLE;
-        jdbcTemplate.update(sql, new Object[]{user_id, Status.SHIPPER_ROLE});
+        jdbcTemplate.update(sql, new Object[]{user_id,phone, Status.SHIPPER_ROLE});
     }
 
-    public void addNewClientInUserRole(String phone) {
+    public void addNewClientInUserRole(String user_id, String phone) {
         String sql = QueryCode.ADD_INTO_USER_ROLE;
-        jdbcTemplate.update(sql, new Object[]{phone, Status.CLIENT_ROLE});
+        jdbcTemplate.update(sql, new Object[]{user_id,phone, Status.CLIENT_ROLE});
     }
 
     public List<String> getAllUnabledShippers() {

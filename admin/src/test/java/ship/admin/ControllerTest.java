@@ -31,8 +31,8 @@ public class ControllerTest {
     }
     @Test
     public void addIntoUserRole(){
-        String phone = "08965326532";
-        dao.addNewShipperInUserRole(dao.getShipperIDByPhone(phone));
+        String phone = "09365989865";
+        dao.addNewClientInUserRole(dao.getClientIDByPhone(phone), phone);
     }
     @Test
     public void getAllUnenabledShipper(){

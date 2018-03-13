@@ -30,7 +30,7 @@ public class Controller {
         String name = newShipper.getName();
         String mail = newShipper.getMail();
         dao.enableNewRegisterShipper(shipperPhone, name, mail);
-        dao.addNewShipperInUserRole(dao.getShipperIDByPhone(shipperPhone));
+        dao.addNewShipperInUserRole(dao.getShipperIDByPhone(shipperPhone), shipperPhone);
         res.setError(ErrorCode.SUCCESS);
         logger.info(Controller.class.getName()+" accept new register shipper successfully.");
         return res;
@@ -48,7 +48,7 @@ public class Controller {
         String name = client.getName();
         String mail = client.getMail();
         dao.enableNewRegisterClient(clientPhone, name, mail);
-        dao.addNewClientInUserRole(dao.getClientIDByPhone(clientPhone));
+        dao.addNewClientInUserRole(dao.getClientIDByPhone(clientPhone), clientPhone);
         res.setError(ErrorCode.SUCCESS);
         logger.info(Controller.class.getName()+" accept new register client successfully.");
         return res;
