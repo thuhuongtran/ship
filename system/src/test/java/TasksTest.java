@@ -1,11 +1,10 @@
 import com.vimensa.system.dao.Order;
-import com.vimensa.system.model.Point;
-import com.vimensa.system.service.FindingRoute;
-import com.vimensa.system.service.OrderProcess;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -60,43 +59,4 @@ public class TasksTest {
     }
 
 
-    @Test
-    public void getRouteTest() throws IOException {
-        Point p = new Point("1", 21.0000281, 105.9072344);
-        Point p1 = new Point("2", 21.0000281, 105.9072344);
-        Point p2 = new Point("3", 20.9980975, 105.8752846);
-        Point p3 = new Point("4", 21.0000281, 105.9072344);
-        Point p4 = new Point("5", 20.9980975, 105.8752846);
-        Point p5 = new Point("6", 21.0462132, 105.7927858);
-        Point p6 = new Point("7", 21.0420076, 105.7901894);
-        List<Point> ps = new ArrayList<>();
-        ps.add(p1);
-        ps.add(p4);
-        ps.add(p5);
-        ps.add(p3);
-        ps.add(p2);
-        ps.add(p6);
-        String res = FindingRoute.getRoute(ps, p);
-        System.out.println(res);
-    }
-    @Test
-    public void removeListTest(){
-        Point p = new Point("1", 21.0000281, 105.9072344);
-        Point p1 = new Point("2", 21.0000281, 105.9072344);
-        Point p2 = new Point("3", 20.9980975, 105.8752846);
-        Point p3 = new Point("4", 21.0000281, 105.9072344);
-        Point p4 = new Point("5", 20.9980975, 105.8752846);
-        Point p5 = new Point("6", 21.0462132, 105.7927858);
-        Point p6 = new Point("7", 21.0420076, 105.7901894);
-        List<Point> ps = new ArrayList<>();
-        ps.add(p1);
-        ps.add(p4);
-        ps.add(p5);
-        ps.add(p3);
-        ps.add(p2);
-        ps.add(p6);
-        Point newp = new Point("2", 21.0000281, 105.9072344);
-
-        assertEquals(true,ps.contains(newp));
-    }
 }

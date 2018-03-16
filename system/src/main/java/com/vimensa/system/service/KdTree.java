@@ -1,7 +1,6 @@
 package com.vimensa.system.service;
 
 import com.vimensa.system.model.Driver;
-import com.vimensa.system.model.Point;
 
 import java.util.*;
 
@@ -668,13 +667,7 @@ public class KdTree<T extends KdTree.XYZPoint> implements Iterable<T> {
             driver.setLongitude(this.y);
             return driver;
         }
-        public Point toPoint(){
-            Point p = new Point();
-            p.setId(this.id);
-            p.setLat(this.x);
-            p.setLog(this.y);
-            return p;
-        }
+
         /**
          * Computes the Euclidean distance from this point to the other.
          *
