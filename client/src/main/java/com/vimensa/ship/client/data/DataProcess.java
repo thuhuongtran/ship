@@ -3,6 +3,7 @@ package com.vimensa.ship.client.data;
 import com.vimensa.ship.client.APIStart;
 import com.vimensa.ship.client.dao.Client;
 import com.vimensa.ship.client.dao.Shipper;
+import com.vimensa.ship.client.model.Destination;
 import com.vimensa.ship.client.model.Status;
 import com.vimensa.ship.client.request.UrgentOrderRequest;
 import com.vimensa.ship.client.request.WaitOrderRequest;
@@ -11,13 +12,17 @@ import com.vimensa.ship.client.service.Tasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.List;
 
 @Transactional
 @Repository
@@ -80,6 +85,29 @@ public class DataProcess {
         long timestmp = Calendar.getInstance().getTimeInMillis();
         String sql = QueryCode.ADD_NEW_ORDER_SYSTEM;
         jdbcTemplate.update(sql, new Object[]{od_id, timestmp, Status.WAIT_ORDER});
+    }
+    public void addDestinations(List<Destination> dli, String od_id){
+        String sql = QueryCode.ADD_NEW_DESTINATION;
+        jdbcTemplate.batchUpdate(sql,new BatchPreparedStatementSetter() {
+
+            @Override
+            public void setValues(PreparedStatement ps, int i)
+                    throws SQLException {
+
+                Destination d = dli.get(i);
+                ps.setString(1, od_id);
+                ps.setDouble(2, d.getTo_lat());
+                ps.setDouble(3, d.getTo_log());
+                ps.setString(4,d.getTo());
+
+            }
+
+            @Override
+            public int getBatchSize() {
+                return dli.size();
+            }
+        });
+
     }
 
 }

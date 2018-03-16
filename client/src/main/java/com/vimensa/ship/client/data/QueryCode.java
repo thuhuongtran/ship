@@ -14,5 +14,7 @@ public class QueryCode {
             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     public static final String ADD_NEW_ORDER_SYSTEM = "INSERT INTO `order_system`(`od_id`,`timestmp`,`status`)" +
             "VALUES(?,?,?)";
+    public static final String ADD_NEW_DESTINATION = "INSERT INTO `destinations`(`od_id`,`to_lat`,`to_log`,`to`)" +
+            " VALUES(?,?,?,?)";
 
 }

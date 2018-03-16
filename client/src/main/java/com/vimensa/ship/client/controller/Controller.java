@@ -54,6 +54,7 @@ public class Controller {
     /**
      * urgent order
      * insert into order with status = unsuccessful
+     * insert into destinations
      * insert into order_system with status = urgent_order
      * @param: urgent-order-info
      * */
@@ -61,6 +62,7 @@ public class Controller {
     public CommonResponse urgentOrder(@RequestBody UrgentOrderRequest ord){
         String od_id = Calendar.getInstance().getTimeInMillis()+"OD";
         dao.addNewUrgentOrder(ord,od_id);
+        dao.addDestinations(ord.getToLi(),od_id);
         dao.addUrgentOrderSystem(od_id);
         CommonResponse res = new CommonResponse();
         res.setError(ErrorCode.SUCCESS);
@@ -69,6 +71,7 @@ public class Controller {
     /**
      * wait order
      * insert into order with status = unsuccessful
+     * insert into destinations
      * insert into order_system with status = wait_order
      * @param: wait-order-info
      * */
@@ -76,6 +79,7 @@ public class Controller {
     public CommonResponse waitOrder(@RequestBody WaitOrderRequest ord){
         String od_id = Calendar.getInstance().getTimeInMillis()+"OD";
         dao.addNewWaitOrder(ord,od_id);
+        dao.addDestinations(ord.getToLi(),od_id);
         dao.addWaitOrderSystem(od_id);
         CommonResponse res = new CommonResponse();
         res.setError(ErrorCode.SUCCESS);

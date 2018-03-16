@@ -8,7 +8,6 @@ import com.vimensa.ship.client.model.Destination;
 import com.vimensa.ship.client.model.ItemType;
 import com.vimensa.ship.client.request.UrgentOrderRequest;
 import com.vimensa.ship.client.request.WaitOrderRequest;
-import com.vimensa.ship.client.service.LoginCode;
 import com.vimensa.ship.client.service.Tasks;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -69,4 +68,16 @@ public class ControllerTest {
                 "06935623154", dli, 2.5,"1521430233000");
         dao.addNewWaitOrder(o,od_id);
     }
+    @Test
+    public void addUrgentOrderDestinationTest(){
+        List<Destination> dli = new ArrayList<>();
+        Destination d1 = new Destination(20.9666026, 105.7785264, "133-135 To Hieu,Ha Cau, Ha Dong, Hn");
+        Destination d2 = new Destination(20.9239655, 105.8339645, "Ca kho Vu Dai, Ngoc Hoi,Thanh Tri, Hn");
+        Destination d3 = new Destination(21.0477467, 105.800241, "Nghia Do, Cau Giay, Hn");
+        dli.add(d1);
+        dli.add(d2);
+        dli.add(d3);
+        dao.addDestinations(dli,"1520910987984OD");
+    }
+
 }
