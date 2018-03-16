@@ -1,6 +1,6 @@
 package com.vimensa.system.service;
 
-import com.vimensa.system.model.Driver;
+import com.vimensa.system.dao.Shipper;
 
 import java.util.*;
 
@@ -660,12 +660,12 @@ public class KdTree<T extends KdTree.XYZPoint> implements Iterable<T> {
         /**
          * @return driver
          * */
-        public Driver toDriver(){
-            Driver driver = new Driver();
-            driver.setId(this.id);
-            driver.setLatitude(this.x);
-            driver.setLongitude(this.y);
-            return driver;
+        public Shipper toDriver(){
+            Shipper s = new Shipper();
+            s.setShp_id(this.id);
+            s.setLat(this.x);
+            s.setLog(this.y);
+            return s;
         }
 
         /**

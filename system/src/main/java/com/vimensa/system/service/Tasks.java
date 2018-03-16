@@ -1,7 +1,9 @@
 package com.vimensa.system.service;
 
-import com.vimensa.system.dao.Order;
+import com.vimensa.system.dao.Shipper;
 import com.vimensa.system.data.DataProcess;
+import com.vimensa.system.model.Edge;
+import com.vimensa.system.model.Order;
 import com.vimensa.system.security.TokenAuthenticationService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class Tasks {
@@ -37,14 +40,15 @@ public class Tasks {
     public void handleUrgentOrders(){
         log.info("Handle urgent orders: The time is now {}", dateFormat.format(new Date()));
         Order ord = dao.getEarliestDeliveryNeededUrgentOrder();
-        if(ord==null){
-            log.info("The order is over.");
+        List<Shipper> shps = dao.getAllAwakeShippers();
+        if(ord==null||shps==null){
+            log.info("The order is over or all shippers are busy.");
         }
         else{
             try {
-                String shipperPhone= OrderProcess.getDriver(ord, OrderProcess.toDrivers(dao.findAllDrivers()));
-                dao.addNewOrderShipperSystem(shipperPhone,ord.getOrder_id());
-                dao.changeStatusToWaitShipperDecisionOrderSystem(ord.getOrder_id());
+                Edge e = FindingBestShipper.getClosestShipper(ord, shps);
+                dao.addNewOrderShipperSystem(e.getShp_id(),e.getOd_id());
+                dao.changeStatusToWaitShipperDecisionOrderSystem(e.getOd_id());
                 log.info("Handle urgent orders: successfully.");
             } catch (IOException e) {
                 log.info(" IO exception: call ggl to get distance.");
