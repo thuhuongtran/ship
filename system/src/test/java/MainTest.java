@@ -23,13 +23,13 @@ public class MainTest {
     @Test
     public void findingClosestShipperTest() throws IOException {
         Order o = dao.getEarliestDeliveryNeededUrgentOrder();
-        List<Shipper> sli = dao.getAllAwakeShippers();
+        List<Shipper> sli = dao.getAllLeisureShippers();
         Edge e = FindingBestShipper.getClosestShipper(o, sli);
         System.out.println(e.getOd_id()+" "+e.getShp_id()+" "+e.getDistance());
     }
     @Test
     public void getAllDriversDBTest(){
-        List<Shipper> shps = dao.getAllAwakeShippers();
+        List<Shipper> shps = dao.getAllLeisureShippers();
         for(int i=0; i<shps.size();i++){
             System.out.println(shps.get(i).getShp_id()+" "+shps.get(i).getLat()+" "+shps.get(i).getLog()+" "+shps.get(i).getStatus());
         }

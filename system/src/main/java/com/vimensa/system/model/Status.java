@@ -16,5 +16,5 @@ public class Status {
     public static final int SHIPPER_AWAKE = 6;
     public static final int SHIPPER_ON_WAY =7;
 
-    public static final int NUMBER_SHIPPER = 2;
+    public static int NUMBER_SHIPPER = 2;
 }

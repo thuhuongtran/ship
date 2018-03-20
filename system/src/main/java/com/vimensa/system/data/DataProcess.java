@@ -30,7 +30,7 @@ public class DataProcess {
     /**
      * get drivers from shipper_system
      */
-    public List<Shipper> getAllAwakeShippers() {
+    public List<Shipper> getAllLeisureShippers() {
         String sql = QueryCode.GET_ALL_AWAKE_SHIPPERS;
         List<Shipper> shippers = jdbcTemplate.query(sql, new Object[]{Status.SHIPPER_AWAKE},
                 new BeanPropertyRowMapper<>(Shipper.class));
@@ -59,9 +59,13 @@ public class DataProcess {
         String sql = QueryCode.CHANGE_STATUS_TO_WAIT_SHIPPER_DECISION_ORDER_SYSTEM;
         jdbcTemplate.update(sql, new Object[]{Status.WAIT_SHIPPER_DECISION, od_id});
     }
+    public void changeStatusToWaitShipperDecisionShipperSystem(String shp_id) {
+        String sql = QueryCode.CHANGE_STATUS_TO_WAIT_SHIPPER_DECISION_SHIPPER_SYSTEM;
+        jdbcTemplate.update(sql, new Object[]{Status.WAIT_SHIPPER_DECISION, shp_id});
+    }
 
     public void changeWaitOrderStatusToUrgentOrderSystem() {
         String sql = QueryCode.CHANGE_WAIT_ORDER_STATUS_TO_URGENT_ORDER_SYSTEM;
-        jdbcTemplate.update(sql, new Object[]{Status.URGENT_ORDER, Status.WAIT_ORDER});
+        jdbcTemplate.update(sql, new Object[]{Status.WAIT_ORDER, Status.URGENT_ORDER});
     }
 }

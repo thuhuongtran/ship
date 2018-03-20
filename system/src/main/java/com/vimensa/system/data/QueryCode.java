@@ -11,6 +11,9 @@ public class QueryCode {
     public static final String DELETE_HANDLED_ORDER_SYSTEM = "DELETE FROM `order_system` WHERE `order_id`=?";
     public static final String CHANGE_STATUS_TO_WAIT_SHIPPER_DECISION_ORDER_SYSTEM = "UPDATE `order_system` SET `status`=?" +
             " WHERE `od_id`=?";
-    public static final String CHANGE_WAIT_ORDER_STATUS_TO_URGENT_ORDER_SYSTEM = "UPDATE `order_system` SET `status`=? " +
-            " WHERE DATE(FROM_UNIXTIME(`wait_time`*0.001))=CURDATE() AND `status`=?";
+    public static final String CHANGE_STATUS_TO_WAIT_SHIPPER_DECISION_SHIPPER_SYSTEM = "UPDATE `shipper_system` SET `status`=?" +
+            " WHERE `shp_id`=?";
+    public static final String CHANGE_WAIT_ORDER_STATUS_TO_URGENT_ORDER_SYSTEM = "UPDATE `order_system` INNER JOIN `order`" +
+            " ON `order`.`od_id`=`order_system`.`od_id` AND `order_system`.`status`=?" +
+            " SET `order_system`.`status` = ? WHERE DATE(FROM_UNIXTIME(`wait_time`*0.001))=CURDATE()";
 }
