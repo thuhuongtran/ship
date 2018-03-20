@@ -1,12 +1,14 @@
 package com.vimensa.ship.shipper.controller;
 
 import com.vimensa.ship.shipper.APIStart;
-import com.vimensa.ship.shipper.dao.OrderSystem;
 import com.vimensa.ship.shipper.dao.Shipper;
 import com.vimensa.ship.shipper.data.DataProcess;
+import com.vimensa.ship.shipper.model.Destination;
 import com.vimensa.ship.shipper.model.ErrorCode;
+import com.vimensa.ship.shipper.model.Order;
 import com.vimensa.ship.shipper.request.AcceptOrder;
 import com.vimensa.ship.shipper.request.Phone;
+import com.vimensa.ship.shipper.request.ShipperID;
 import com.vimensa.ship.shipper.response.CommonResponse;
 import com.vimensa.ship.shipper.response.GetOrder;
 import com.vimensa.ship.shipper.response.ShipperInfoRes;
@@ -15,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.ClientInfoStatus;
+import java.util.List;
 
 @RestController
 public class Controller {
@@ -55,18 +57,20 @@ public class Controller {
      * */
     @RequestMapping(value = "/getorder",method = RequestMethod.POST)
     @ResponseBody
-    public GetOrder getOrder(@RequestBody Phone p){
-        String phone = p.getPhone();
-        GetOrder ord = new GetOrder();
-        int count = dao.countWaitAcceptingOrderShipperSystem(phone);
+    public GetOrder getOrder(@RequestBody ShipperID shp){
+        String shp_id = shp.getShp_id();
+        int count = dao.countWaitAcceptingOrderShipperSystem(shp_id);
+        GetOrder res = new GetOrder();
         if(count<=0){
-            ord.setError(ErrorCode.NO_ORDER);
+            res.setError(ErrorCode.NO_ORDER);
         }
         else{
-            ord = dao.getDetailOrderSystem(phone);
-            ord.setError(ErrorCode.SUCCESS);
+            Order ord = dao.shipperGetDetailOrderByShipperID(shp_id);
+            List<Destination> li = dao.getDestinationsByODID(ord.getOd_id());
+            res = new GetOrder(ord, li);
+            res.setError(ErrorCode.SUCCESS);
         }
-        return  ord;
+        return  res;
     }
     /**
      * change status in order_shipper to SHIPPER_ACCEPT_ORDER
@@ -81,7 +85,7 @@ public class Controller {
         String order_id = ao.getOrder_id();
         dao.changeStatusInOrderShipperToAccepted(order_id);
         dao.changeShipperStatusToOnWayInShipperSystem(shipper_phone);
-        OrderSystem o = dao.getOrderSystemByOrderID(order_id);
-        dao.addNewOrderLog(o,shipper_phone);
+       // OrderSystem o = dao.getOrderSystemByOrderID(order_id);
+       // dao.addNewOrderLog(o,shipper_phone);
     }
 }

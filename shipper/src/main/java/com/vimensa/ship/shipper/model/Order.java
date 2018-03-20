@@ -1,12 +1,7 @@
-package com.vimensa.ship.shipper.response;
+package com.vimensa.ship.shipper.model;
 
-import com.vimensa.ship.shipper.model.Destination;
-import com.vimensa.ship.shipper.model.Order;
-
-import java.util.List;
-
-public class GetOrder {
-    private int error;
+public class Order {
+    private String od_id;
     private String adv_paym;
     private int item_type;
     private String note;
@@ -17,35 +12,14 @@ public class GetOrder {
     private double distance;
     private double fee;
     private String wait_time;
-    private List<Destination> toLi;
 
-    public GetOrder() {
+
+    public String getOd_id() {
+        return od_id;
     }
 
-    public GetOrder(Order o, List<Destination> li) {
-        this.toLi = li;
-        this.adv_paym = o.getAdv_paym();
-        this.item_type = o.getItem_type();
-        this.note = o.getNote();
-        this.from = o.getFrom();
-        this.from_lat = o.getFrom_lat();
-        this.from_log = o.getFrom_log();
-        this.custm_phone = o.getCustm_phone();
-        this.distance = o.getDistance();
-        this.fee = o.getFee();
-        this.wait_time = o.getWait_time();
-    }
-
-    public List<Destination> getToLi() {
-        return toLi;
-    }
-
-    public void setToLi(List<Destination> toLi) {
-        this.toLi = toLi;
-    }
-
-    public int getError() {
-        return error;
+    public void setOd_id(String od_id) {
+        this.od_id = od_id;
     }
 
     public String getAdv_paym() {
@@ -127,10 +101,4 @@ public class GetOrder {
     public void setWait_time(String wait_time) {
         this.wait_time = wait_time;
     }
-
-    public void setError(int error) {
-        this.error = error;
-    }
-
-
 }
