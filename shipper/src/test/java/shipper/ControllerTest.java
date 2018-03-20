@@ -59,18 +59,10 @@ public class ControllerTest {
         String phone = "01232323232";
         dao.changeShipperStatusToOnWayInShipperSystem(phone);
     }
-    /*
-    @Test
-    public void getOrderSystemByIDTest(){
-        String orderID = "1520324183829OD";
-        OrderSystem o = dao.getOrderSystemByOrderID(orderID);
-        assertEquals(orderID,o.getOrder_id());
-    }
     @Test
     public void addNewOrderLogTest(){
-        OrderSystem o = dao.getOrderSystemByOrderID("1520324183829OD");
-        dao.addNewOrderLog(o,"01232323232");
+        dao.addNewOrderLogWaitTakeOver("");
     }
-    */
+
 }
 

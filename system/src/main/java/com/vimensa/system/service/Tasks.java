@@ -55,14 +55,18 @@ public class Tasks {
                 Status.NUMBER_SHIPPER = 3;
             else
                 Status.NUMBER_SHIPPER =5;
+            log.info("HANDLE_URGENT_ORDER change kdTree number_shipper to "+Status.NUMBER_SHIPPER +" when all_shipper = "+shps.size());
             try {
                 Edge e = FindingBestShipper.getClosestShipper(ord, shps);
                 dao.addNewOrderShipperSystem(e.getShp_id(),e.getOd_id());
+                log.info("HANDLE_URGENT_ORDER add new in order_shipper successfully.");
                 dao.changeStatusToWaitShipperDecisionOrderSystem(e.getOd_id());
+                log.info("HANDLE_URGENT_ORDER change status to wait-shipper-decision in order_system successfully.");
                 dao.changeStatusToWaitShipperDecisionShipperSystem(e.getShp_id());
+                log.info("HANDLE_URGENT_ORDER change status in shipper_system to wait-shipper-decision successfully.");
                 log.info("Handle urgent orders: successfully.");
             } catch (IOException e) {
-                log.info(" IO exception: call ggl to get distance.");
+                log.info("HANDLE_URGENT_ORDER IO exception: call ggl to get distance.");
                 e.printStackTrace();
             }
         }
@@ -75,6 +79,6 @@ public class Tasks {
     public void handleWaitOrder(){
         log.info("The time is now {}", dateFormat.format(new Date()));
         dao.changeWaitOrderStatusToUrgentOrderSystem();
-        log.info("Wait order to urgent after each day: successfully.");
+        log.info("HANDLE_WAIT_ORDER Wait order to urgent after each day: successfully.");
     }
 }

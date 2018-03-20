@@ -7,6 +7,7 @@ import java.util.List;
 
 public class GetOrder {
     private int error;
+    private String od_id;
     private String adv_paym;
     private int item_type;
     private String note;
@@ -24,6 +25,7 @@ public class GetOrder {
 
     public GetOrder(Order o, List<Destination> li) {
         this.toLi = li;
+        this.od_id = o.getOd_id();
         this.adv_paym = o.getAdv_paym();
         this.item_type = o.getItem_type();
         this.note = o.getNote();
@@ -38,6 +40,14 @@ public class GetOrder {
 
     public List<Destination> getToLi() {
         return toLi;
+    }
+
+    public String getOd_id() {
+        return od_id;
+    }
+
+    public void setOd_id(String od_id) {
+        this.od_id = od_id;
     }
 
     public void setToLi(List<Destination> toLi) {

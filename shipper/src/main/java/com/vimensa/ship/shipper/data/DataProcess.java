@@ -63,27 +63,55 @@ public class DataProcess {
                 new BeanPropertyRowMapper<>(Destination.class));
         return li;
     }
-    public void changeStatusInOrderShipperToAccepted(String order_id){
+    public void changeStatusInOrderShipperToAccepted(String od_id){
         String sql = QueryCode.CHANGE_STATUS_TO_ACCEPTED_IN_ORDER_SHIPPER;
-        jdbcTemplate.update(sql, new Object[]{Status.SHIPPER_ACCEPT_ORDER,order_id,Status.WAIT_SHIPPER_DECISION});
+        jdbcTemplate.update(sql, new Object[]{Status.SHIPPER_ACCEPT_ORDER,od_id,Status.WAIT_SHIPPER_DECISION});
     }
-    public void changeShipperStatusToOnWayInShipperSystem(String phone){
-        String sql = QueryCode.CHANGE_SHIPPER_STATUS_TO_ON_WAY_SHIPPER_SYSTEM;
-        jdbcTemplate.update(sql, new Object[]{Status.SHIPPER_ON_WAY, phone});
+    public void changeShipperStatusToOnWayInShipperSystem(String shp_id){
+        String sql = QueryCode.CHANGE_SHIPPER_STATUS_SHIPPER_SYSTEM;
+        jdbcTemplate.update(sql, new Object[]{Status.SHIPPER_ON_WAY, shp_id,Status.WAIT_SHIPPER_DECISION});
     }
-    /*
-    public OrderSystem getOrderSystemByOrderID(String order_id){
-        String sql = QueryCode.GET_ORDER_SYSTEM_BY_ORDERID;
-        OrderSystem o = jdbcTemplate.queryForObject(sql, new Object[]{order_id},
-                new BeanPropertyRowMapper<>(OrderSystem.class));
-        return o;
-    }
-    public void addNewOrderLog(OrderSystem o, String shipper_phone){
+    public void addNewOrderLogWaitTakeOver(String od_id) {
         long timestamp = Calendar.getInstance().getTimeInMillis();
-        String sql =    QueryCode.ADD_NEW_ORDER_LOG;
-        jdbcTemplate.update(sql, new Object[]{o.getOrder_id(), timestamp, Status.ORDER_WAITING_TAKE_OVER, o.getClient_phone(),
-                shipper_phone, o.getAdv_paym(), o.getMass(), o.getNote(), o.getFrom(), o.getTo(), o.getDistance(), o.getFee(), o.getItem_type(),
-                o.getTimestamp(), o.getWait_time()});
+        String sql = QueryCode.ADD_NEW_ORDER_LOG;
+        jdbcTemplate.update(sql, new Object[]{od_id,timestamp,Status.ORDER_WAITING_TAKE_OVER});
     }
-    */
+    public void changeStatusToUrgentOrderSystem(String od_id){
+        String sql = QueryCode.CHANGE_STATUS_TO_URGENT_ORDER_SYSTEM;
+        jdbcTemplate.update(sql, new Object[]{Status.URGENT_ORDER, od_id});
+    }
+    public void deleteOrderShipperByShipperID(String shp_id){
+        String sql = QueryCode.DELETE_ORDER_SHIPPER_BY_SHIPPER_ID;
+        jdbcTemplate.update(sql, new Object[]{shp_id,Status.WAIT_SHIPPER_DECISION});
+    }
+    public void addOrderLogDelivering(String od_id){
+        long timestamp = Calendar.getInstance().getTimeInMillis();
+        String sql = QueryCode.ADD_NEW_ORDER_LOG;
+        jdbcTemplate.update(sql, new Object[]{od_id, timestamp, Status.ORDER_DELIVERING});
+    }
+    public void setShipperIDInOrder(String od_id,String shp_id){
+        String sql = QueryCode.SET_SHIPPER_ID_IN_ORDER;
+        jdbcTemplate.update(sql, new Object[]{shp_id, od_id, Status.UNSUCCESSFUL});
+    }
+    public void addOrderLogDelivered(String od_id){
+        long timestamp = Calendar.getInstance().getTimeInMillis();
+        String sql = QueryCode.ADD_NEW_ORDER_LOG;
+        jdbcTemplate.update(sql, new Object[]{od_id, timestamp, Status.ORDER_DELIVERED});
+    }
+    public void deleteOrderShipeprByOrderID(String od_id){
+        String sql = QueryCode.DELETE_ORDER_SHIPPER_BY_ORDER_ID;
+        jdbcTemplate.update(sql, new Object[]{od_id, Status.SHIPPER_ACCEPT_ORDER});
+    }
+    public void deleteOrderSystemByOrderID(String od_id){
+        String sql = QueryCode.DELETE_ORDER_SYSTEM_BY_ORDER_ID;
+        jdbcTemplate.update(sql, new Object[]{od_id, Status.WAIT_SHIPPER_DECISION});
+    }
+    public void updateSuccessfulStatusOrder(String od_id){
+        String sql = QueryCode.UPDATE_SUCCESSFUL_STATUS_ORDER;
+        jdbcTemplate.update(sql, new Object[]{Status.SUCCESSFUL, od_id, Status.UNSUCCESSFUL});
+    }
+    public void changeShipperStatusToAwakeInShipperSystem(String shp_id){
+        String sql = QueryCode.CHANGE_SHIPPER_STATUS_SHIPPER_SYSTEM;
+        jdbcTemplate.update(sql, new Object[]{Status.SHIPPER_AWAKE, shp_id,Status.SHIPPER_ON_WAY});
+    }
 }

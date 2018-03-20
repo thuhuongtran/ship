@@ -15,12 +15,16 @@ public class QueryCode {
             " WHERE `od_id`=?";
 
     public static final String CHANGE_STATUS_TO_ACCEPTED_IN_ORDER_SHIPPER = "UPDATE `order_shipper` SET `status`=? " +
-            "WHERE `order_id`=? AND `status`=?";
-    public static final String CHANGE_SHIPPER_STATUS_TO_ON_WAY_SHIPPER_SYSTEM="UPDATE `shipper_system` SET `status`=?" +
-            " WHERE `phone`=?";
-    public static final String GET_ORDER_SYSTEM_BY_ORDERID = "SELECT * FROM `order_system` WHERE `order_id`=?";
-    public static final String ADD_NEW_ORDER_LOG = "INSERT INTO `order_log`(`order_id`,`timestamp`,`status`,`client_phone`," +
-            "`shipper_phone`,`adv_paym`,`mass`,`note`,`from`,`to`,`distance`,`fee`,`item_type`,`created_time`,`wait_time`)" +
-            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+            "WHERE `od_id`=? AND `status`=?";
+    public static final String CHANGE_SHIPPER_STATUS_SHIPPER_SYSTEM="UPDATE `shipper_system` SET `status`=?" +
+            " WHERE `shp_id`=? AND `status`=?";
+    public static final String ADD_NEW_ORDER_LOG = "INSERT INTO `order_log`(`od_id`,`timestmp`,`status`) " +
+            " VALUES(?,?,?)";
+    public static final String CHANGE_STATUS_TO_URGENT_ORDER_SYSTEM = "UPDATE `order_system` SET `status`=?" +
+            " WHERE `od_id`=?";
+    public static final String DELETE_ORDER_SHIPPER_BY_SHIPPER_ID = "DELETE FROM `order_shipper` WHERE `shp_id`=? AND `status`=?";
+    public static final String SET_SHIPPER_ID_IN_ORDER = "UPDATE `order` SET `shp_id`=? WHERE `od_id`=? AND `status`=?";
+    public static final String DELETE_ORDER_SHIPPER_BY_ORDER_ID = "DELETE FROM `order_shipper` WHERE `od_id`=? AND `status`=?";
+    public static final String DELETE_ORDER_SYSTEM_BY_ORDER_ID = "DELETE FROM `order_system` WHERE `od_id`=? AND `status`=?";
+    public static final String UPDATE_SUCCESSFUL_STATUS_ORDER = "UPDATE `order` SET `status`=? WHERE `od_id`=? AND `status`=?";
 }
