@@ -5,6 +5,9 @@ public class Destination {
     private double to_log;
     private String to;
 
+    public Destination() {
+    }
+
     public Destination(double to_lat, double to_log, String to) {
         this.to_lat = to_lat;
         this.to_log = to_log;
