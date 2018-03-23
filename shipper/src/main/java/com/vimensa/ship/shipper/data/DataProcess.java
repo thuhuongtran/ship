@@ -114,4 +114,9 @@ public class DataProcess {
         String sql = QueryCode.CHANGE_SHIPPER_STATUS_SHIPPER_SYSTEM;
         jdbcTemplate.update(sql, new Object[]{Status.SHIPPER_AWAKE, shp_id,Status.SHIPPER_ON_WAY});
     }
+    public void addOrderLogUnsuccessfulDeliverd(String od_id){
+        long timestamp = Calendar.getInstance().getTimeInMillis();
+        String sql = QueryCode.ADD_NEW_ORDER_LOG;
+        jdbcTemplate.update(sql, new Object[]{od_id, timestamp, Status.ORDER_DELIVERD_UNSUCCESSFULLY});
+    }
 }
