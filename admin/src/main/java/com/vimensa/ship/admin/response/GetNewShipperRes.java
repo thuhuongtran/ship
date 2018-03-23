@@ -2,11 +2,20 @@ package com.vimensa.ship.admin.response;
 
 import java.util.List;
 
-public class GetNewShipperRes
+public class GetNewShipperRes extends BaseResponse
 {
     private List<String> shipperLi;
     private List<String> clientLi;
     private int error;
+
+    public GetNewShipperRes() {
+    }
+
+    public GetNewShipperRes(List<String> shipperLi, List<String> clientLi, int error) {
+        this.shipperLi = shipperLi;
+        this.clientLi = clientLi;
+        this.error = error;
+    }
 
     public int getError() {
         return error;

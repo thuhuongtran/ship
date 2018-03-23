@@ -22,17 +22,17 @@ public class ControllerTest {
 
     @Test
     public void enableRegisterShipperTest(){
-        String name = "hello2018";
-        String mail = "hello20118@mail.com";
-        String phone = "01296537687";
+        String name = "hi111";
+        String mail = "hi111@mail.com";
+        String phone = "09658752120";
         dao.enableNewRegisterShipper(phone, name, mail);
         Shipper shipper = dao.getShipperByPhone(phone);
         assertEquals(phone, shipper.getPhone());
     }
     @Test
     public void addIntoUserRole(){
-        String phone = "09365989865";
-        dao.addNewClientInUserRole(dao.getClientIDByPhone(phone), phone);
+        String phone = "09658752120";
+        dao.addNewShipperInUserRole(dao.getShipperIDByPhone(phone), phone);
     }
     @Test
     public void getAllUnenabledShipper(){

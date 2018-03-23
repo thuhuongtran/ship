@@ -1,12 +1,12 @@
 package com.vimensa.ship.admin.response;
 
-public class CommonResponse extends BaseResponse{
+public abstract class BaseResponse {
     private int error;
 
-    public CommonResponse() {
+    public BaseResponse() {
     }
 
-    public CommonResponse(int error) {
+    public BaseResponse(int error) {
         this.error = error;
     }
 
@@ -18,3 +18,4 @@ public class CommonResponse extends BaseResponse{
         this.error = error;
     }
 }
+

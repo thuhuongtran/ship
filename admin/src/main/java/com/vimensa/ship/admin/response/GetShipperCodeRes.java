@@ -1,8 +1,16 @@
 package com.vimensa.ship.admin.response;
 
-public class GetShipperCodeRes {
+public class GetShipperCodeRes extends BaseResponse{
     private String code;
     private int error;
+
+    public GetShipperCodeRes() {
+    }
+
+    public GetShipperCodeRes(String code, int error) {
+        this.code = code;
+        this.error = error;
+    }
 
     public String getCode() {
         return code;

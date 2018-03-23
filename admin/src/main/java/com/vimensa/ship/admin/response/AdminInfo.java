@@ -1,6 +1,6 @@
 package com.vimensa.ship.admin.response;
 
-public class AdminInfo {
+public class AdminInfo extends BaseResponse{
     private String adm_id;
     private String phone;
     private String code;
