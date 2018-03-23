@@ -1,9 +1,7 @@
 package com.vimensa.ship.client.data;
 
 import com.vimensa.ship.client.APIStart;
-import com.vimensa.ship.client.dao.Client;
-import com.vimensa.ship.client.dao.Shipper;
-import com.vimensa.ship.client.model.Destination;
+import com.vimensa.ship.client.dao.*;
 import com.vimensa.ship.client.model.Status;
 import com.vimensa.ship.client.request.UrgentOrderRequest;
 import com.vimensa.ship.client.request.WaitOrderRequest;
@@ -123,6 +121,20 @@ public class DataProcess {
         return jdbcTemplate.queryForObject(sql,new Object[]{od_id,Status.SHIPPER_ACCEPTED_ORDER},
                 new BeanPropertyRowMapper<>(GetShipperRes.class));
 
+    }
+    public Order getOrderByIOdID(String od_id){
+        String sql = QueryCode.GET_ORDER_BY_ORDER_ID;
+        return jdbcTemplate.queryForObject(sql, new Object[]{od_id}, new BeanPropertyRowMapper<>(Order.class));
+    }
+    public List<Destination> getDestinationsByODID(String od_id){
+        String sql = QueryCode.GET_DESTINATIONS_BY_OD_ID;
+        List<Destination> li = jdbcTemplate.query(sql, new Object[]{od_id},
+                new BeanPropertyRowMapper<>(Destination.class));
+        return li;
+    }
+    public List<OrderStatus> getAllOrderStatusByOrderID(String od_id){
+        String sql = QueryCode.GET_ALL_ORDER_STATUS_BY_ORDER_ID;
+        return jdbcTemplate.query(sql, new Object[]{od_id}, new BeanPropertyRowMapper<>(OrderStatus.class));
     }
 
 }

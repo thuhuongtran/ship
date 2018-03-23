@@ -1,38 +1,33 @@
-package com.vimensa.ship.client.request;
+package com.vimensa.ship.client.dao;
 
-import com.vimensa.ship.client.dao.Destination;
-
-import java.util.List;
-
-public class WaitOrderRequest {
+public class Order {
+    private String od_id;
+    private String created_time;
     private String cli_id;
+    private String shp_id;
     private String adv_paym;
     private int item_type;
     private String note;
     private String from;
-    private double from_lat;
-    private double from_log;
     private String custm_phone;
-    private List<Destination> toLi;
     private double distance;
+    private double fee;
     private String wait_time;
 
-    public WaitOrderRequest() {
+    public String getOd_id() {
+        return od_id;
     }
 
-    public WaitOrderRequest(String cli_id, String adv_paym, int item_type, String note, String from, double from_lat,
-                            double from_log, String custm_phone, List<Destination> toLi, double distance, String wait_time) {
-        this.cli_id = cli_id;
-        this.adv_paym = adv_paym;
-        this.item_type = item_type;
-        this.note = note;
-        this.from = from;
-        this.from_lat = from_lat;
-        this.from_log = from_log;
-        this.custm_phone = custm_phone;
-        this.toLi = toLi;
-        this.distance = distance;
-        this.wait_time = wait_time;
+    public void setOd_id(String od_id) {
+        this.od_id = od_id;
+    }
+
+    public String getCreated_time() {
+        return created_time;
+    }
+
+    public void setCreated_time(String created_time) {
+        this.created_time = created_time;
     }
 
     public String getCli_id() {
@@ -41,6 +36,14 @@ public class WaitOrderRequest {
 
     public void setCli_id(String cli_id) {
         this.cli_id = cli_id;
+    }
+
+    public String getShp_id() {
+        return shp_id;
+    }
+
+    public void setShp_id(String shp_id) {
+        this.shp_id = shp_id;
     }
 
     public String getAdv_paym() {
@@ -75,22 +78,6 @@ public class WaitOrderRequest {
         this.from = from;
     }
 
-    public double getFrom_lat() {
-        return from_lat;
-    }
-
-    public void setFrom_lat(double from_lat) {
-        this.from_lat = from_lat;
-    }
-
-    public double getFrom_log() {
-        return from_log;
-    }
-
-    public void setFrom_log(double from_log) {
-        this.from_log = from_log;
-    }
-
     public String getCustm_phone() {
         return custm_phone;
     }
@@ -99,20 +86,20 @@ public class WaitOrderRequest {
         this.custm_phone = custm_phone;
     }
 
-    public List<Destination> getToLi() {
-        return toLi;
-    }
-
-    public void setToLi(List<Destination> toLi) {
-        this.toLi = toLi;
-    }
-
     public double getDistance() {
         return distance;
     }
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public double getFee() {
+        return fee;
+    }
+
+    public void setFee(double fee) {
+        this.fee = fee;
     }
 
     public String getWait_time() {

@@ -2,9 +2,10 @@ package ship.client;
 
 import com.vimensa.ship.client.APIStart;
 import com.vimensa.ship.client.dao.Client;
+import com.vimensa.ship.client.dao.Order;
 import com.vimensa.ship.client.dao.Shipper;
 import com.vimensa.ship.client.data.DataProcess;
-import com.vimensa.ship.client.model.Destination;
+import com.vimensa.ship.client.dao.Destination;
 import com.vimensa.ship.client.model.ItemType;
 import com.vimensa.ship.client.request.UrgentOrderRequest;
 import com.vimensa.ship.client.request.WaitOrderRequest;
@@ -89,5 +90,10 @@ public class ControllerTest {
     public void getShipperAcceptedOrderTest(){
         GetShipperRes r = dao.getShipperAceptedOrder("1520911956238OD");
         System.out.println(r.getPhone()+" "+r.getName()+" "+r.getShp_id()+" "+r.getStar()+" "+r.getAvatar());
+    }
+    @Test
+    public void getOrderDetailTest(){
+        Order o = dao.getOrderByIOdID("1520911956238OD");
+        assertEquals("1521263460000",o.getWait_time());
     }
 }

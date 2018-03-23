@@ -1,6 +1,6 @@
 package com.vimensa.ship.client.request;
 
-import com.vimensa.ship.client.model.Destination;
+import com.vimensa.ship.client.dao.Destination;
 
 import java.util.List;
 

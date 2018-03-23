@@ -2,13 +2,13 @@ package com.vimensa.ship.client.controller;
 
 import com.vimensa.ship.client.APIStart;
 import com.vimensa.ship.client.dao.Client;
+import com.vimensa.ship.client.dao.Destination;
+import com.vimensa.ship.client.dao.Order;
+import com.vimensa.ship.client.dao.OrderStatus;
 import com.vimensa.ship.client.data.DataProcess;
 import com.vimensa.ship.client.model.ErrorCode;
 import com.vimensa.ship.client.request.*;
-import com.vimensa.ship.client.response.BaseResponse;
-import com.vimensa.ship.client.response.ClientInfoRes;
-import com.vimensa.ship.client.response.CommonResponse;
-import com.vimensa.ship.client.response.GetShipperRes;
+import com.vimensa.ship.client.response.*;
 import com.vimensa.ship.client.service.Tasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +17,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
+import java.util.List;
 
 @RestController
 public class Controller {
@@ -153,10 +154,32 @@ public class Controller {
         }
         return res;
     }
+    /**
+     * get detail in order
+     * get all destinations
+     * get all in order-log in get details in order by od_id
+     * */
     @RequestMapping(value = "/checkorderstatus",method = RequestMethod.POST)
     @ResponseBody
-    public void checkOrderStatus(@RequestBody OrderID id){
-
+    public BaseResponse checkOrderStatus(@RequestBody OrderID id){
+        BaseResponse res;
+        String od_id = id.getOd_id();
+        try{
+            Order o = dao.getOrderByIOdID(od_id);
+            logger.info(Controller.class.getName() +" CHECK_ORDER_STATUS get detail order successfully.");
+            List<Destination> toLi = dao.getDestinationsByODID(od_id);
+            logger.info(Controller.class.getName() +" CHECK_ORDER_STATUS get all destinations successfully.");
+            List<OrderStatus> o_status = dao.getAllOrderStatusByOrderID(od_id);
+            logger.info(Controller.class.getName() +" CHECK_ORDER_STATUS get all order-status successfully.");
+            res = new OrderHistory(o, o_status, toLi);
+            res.setError(ErrorCode.SUCCESS);
+        }
+        catch (Exception e) {
+            res = new CommonResponse(ErrorCode.SYSTEM_EXCEPTION);
+            logger.info(Controller.class.getName() + " CHECK_ORDER_STATUS exception" + e.getMessage());
+            e.printStackTrace();
+        }
+        return res;
     }
 
     /**

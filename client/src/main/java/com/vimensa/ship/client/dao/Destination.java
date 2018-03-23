@@ -1,4 +1,4 @@
-package com.vimensa.ship.client.model;
+package com.vimensa.ship.client.dao;
 
 public class Destination {
     private double to_lat;

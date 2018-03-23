@@ -21,5 +21,11 @@ public class QueryCode {
     public static final String GET_SHIPPER_ACPETED_ORDER = "SELECT `shipper`.`phone`,`shipper`.`name`,`shipper`.`shp_id`," +
             "`shipper`.`star`,`shipper`.`avatar` FROM `shipper` INNER JOIN `order_shipper` WHERE `shipper`.`shp_id`=`order_shipper`.`shp_id`" +
             "AND `order_shipper`.`od_id`=? AND `order_shipper`.`status`=?";
-
+    public static final String GET_ORDER_BY_ORDER_ID = "SELECT `order`.`od_id`,`order`.`created_time`,`order`.`cli_id`," +
+            "`order`.`shp_id`,`order`.`adv_paym`,`order`.`item_type`,`order`.`note`,`order`.`from`,`order`.`custm_phone`," +
+            "`order`.`distance`,`order`.`fee`,`order`.`wait_time` FROM `order` WHERE `od_id`=?";
+    public static final String GET_DESTINATIONS_BY_OD_ID = "SELECT `to`,`to_lat`,`to_log` FROM `destinations` " +
+            " WHERE `od_id`=?";
+    public static final String GET_ALL_ORDER_STATUS_BY_ORDER_ID = "SELECT `timestmp`,`status` FROM `order_log` WHERE " +
+            " `od_id`=?";
 }
