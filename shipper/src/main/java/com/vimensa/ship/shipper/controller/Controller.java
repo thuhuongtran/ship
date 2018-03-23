@@ -81,6 +81,7 @@ public class Controller {
             int count = dao.countWaitAcceptingOrderShipperSystem(shp_id);
             if (count <= 0) {
                 res.setError(ErrorCode.NO_ORDER);
+                logger.info(Controller.class.getName() + " GET_ORDER found no order yet.");
             } else {
                 Order ord = dao.shipperGetDetailOrderByShipperID(shp_id);
                 logger.info(Controller.class.getName() + " GET_ORDER get half of detail order successfully.");
