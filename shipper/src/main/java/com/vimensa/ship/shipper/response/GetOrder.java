@@ -5,7 +5,7 @@ import com.vimensa.ship.shipper.model.Order;
 
 import java.util.List;
 
-public class GetOrder {
+public class GetOrder extends BaseResponse{
     private int error;
     private String od_id;
     private String adv_paym;

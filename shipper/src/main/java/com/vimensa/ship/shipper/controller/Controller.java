@@ -11,6 +11,7 @@ import com.vimensa.ship.shipper.request.OrderID;
 import com.vimensa.ship.shipper.request.OrderShipperID;
 import com.vimensa.ship.shipper.request.Phone;
 import com.vimensa.ship.shipper.request.ShipperID;
+import com.vimensa.ship.shipper.response.BaseResponse;
 import com.vimensa.ship.shipper.response.CommonResponse;
 import com.vimensa.ship.shipper.response.GetOrder;
 import com.vimensa.ship.shipper.response.ShipperInfoRes;
@@ -35,15 +36,15 @@ public class Controller {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse register(@RequestBody Phone register) {
-        CommonResponse res = new CommonResponse();
+    public BaseResponse register(@RequestBody Phone register) {
+        BaseResponse res;
         try {
             String phone = register.getPhone();
             dao.registerNewShipper(phone);
-            res.setError(ErrorCode.SUCCESS);
+            res = new CommonResponse(ErrorCode.SUCCESS);
             logger.info(Controller.class.getName() + " REGISTER register new shipper successfully.");
         } catch (Exception e) {
-            res.setError(ErrorCode.SYSTEM_EXCEPTION);
+            res = new CommonResponse(ErrorCode.SYSTEM_EXCEPTION);
             logger.info(Controller.class.getName() + " REGISTER exception: " + e.getMessage());
             e.printStackTrace();
         }
@@ -51,8 +52,8 @@ public class Controller {
     }
 
     @RequestMapping(value = "/sessionLog", method = RequestMethod.POST)
-    public ShipperInfoRes sessionLog(@RequestBody Phone p) {
-        ShipperInfoRes res = new ShipperInfoRes();
+    public BaseResponse sessionLog(@RequestBody Phone p) {
+        BaseResponse res;
         try {
             String phone = p.getPhone();
             Shipper s = dao.getShipperByPhone(phone);
@@ -61,7 +62,7 @@ public class Controller {
             res.setError(ErrorCode.SUCCESS);
             logger.info(Controller.class.getName() + " SESSION_LOG session log successfully.");
         } catch (Exception e) {
-            res.setError(ErrorCode.SYSTEM_EXCEPTION);
+            res = new CommonResponse(ErrorCode.SYSTEM_EXCEPTION);
             logger.info(Controller.class.getName() + " SESSION_LOG exception: " + e.getMessage());
             e.printStackTrace();
         }
@@ -74,13 +75,13 @@ public class Controller {
      */
     @RequestMapping(value = "/getorder", method = RequestMethod.POST)
     @ResponseBody
-    public GetOrder getOrder(@RequestBody ShipperID shp) {
-        GetOrder res = new GetOrder();
+    public BaseResponse getOrder(@RequestBody ShipperID shp) {
+        BaseResponse res;
         try {
             String shp_id = shp.getShp_id();
             int count = dao.countWaitAcceptingOrderShipperSystem(shp_id);
             if (count <= 0) {
-                res.setError(ErrorCode.NO_ORDER);
+                res = new CommonResponse(ErrorCode.NO_ORDER);
                 logger.info(Controller.class.getName() + " GET_ORDER found no order yet.");
             } else {
                 Order ord = dao.shipperGetDetailOrderByShipperID(shp_id);
@@ -92,7 +93,7 @@ public class Controller {
             }
 
         } catch (Exception e) {
-            res.setError(ErrorCode.SYSTEM_EXCEPTION);
+            res = new CommonResponse(ErrorCode.SYSTEM_EXCEPTION);
             logger.info(Controller.class.getName() + " GET_ORDER exception: " + e.getMessage());
             e.printStackTrace();
         }
@@ -108,8 +109,8 @@ public class Controller {
      */
     @RequestMapping(value = "/acceptorder", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse acceptOrder(@RequestBody OrderShipperID ao) {
-        CommonResponse res = new CommonResponse();
+    public BaseResponse acceptOrder(@RequestBody OrderShipperID ao) {
+        BaseResponse res;
         try {
             String shp_id = ao.getShp_id();
             String od_id = ao.getOd_id();
@@ -121,9 +122,9 @@ public class Controller {
             logger.info(Controller.class.getName() + " ACCEPT_ORDER add new order_log wait_to_take_over successfully.");
             dao.setShipperIDInOrder(od_id, shp_id);
             logger.info(Controller.class.getName() + " ACCEPT_ORDER set shp-id in order successfully.");
-            res.setError(ErrorCode.SUCCESS);
+            res = new CommonResponse(ErrorCode.SUCCESS);
         } catch (Exception e) {
-            res.setError(ErrorCode.SYSTEM_EXCEPTION);
+            res = new CommonResponse(ErrorCode.SYSTEM_EXCEPTION);
             logger.info(Controller.class.getName() + " ACCEPT_ORDER exception: " + e.getMessage());
             e.printStackTrace();
         }
@@ -137,8 +138,8 @@ public class Controller {
      */
     @RequestMapping(value = "/rejectorder", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse rejectOrder(@RequestBody OrderShipperID id) {
-        CommonResponse res = new CommonResponse();
+    public BaseResponse rejectOrder(@RequestBody OrderShipperID id) {
+        BaseResponse res;
         try {
             String shp_id = id.getShp_id();
             String od_id = id.getOd_id();
@@ -146,10 +147,10 @@ public class Controller {
             logger.info(Controller.class.getName() + " REJECT_ORDER change status to urgent in order_system successfully.");
             dao.deleteOrderShipperByShipperID(shp_id);
             logger.info(Controller.class.getName() + " REJECT_ORDER delete in order_shipper successfully.");
-            res.setError(ErrorCode.SUCCESS);
+            res = new CommonResponse(ErrorCode.SUCCESS);
 
         } catch (Exception e) {
-            res.setError(ErrorCode.SYSTEM_EXCEPTION);
+            res = new CommonResponse(ErrorCode.SYSTEM_EXCEPTION);
             logger.info(Controller.class.getName() + " REJECT_ORDER exception: " + e.getMessage());
             e.printStackTrace();
         }
@@ -161,16 +162,16 @@ public class Controller {
      */
     @RequestMapping(value = "/reachedshop", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse reachedShop(@RequestBody OrderID oi) {
-        CommonResponse res = new CommonResponse();
+    public BaseResponse reachedShop(@RequestBody OrderID oi) {
+        BaseResponse res;
         try {
 
             String od_id = oi.getOd_id();
             dao.addOrderLogDelivering(od_id);
             logger.info(Controller.class.getName() + " REACHED_SHOP insert into order_log status-delivering successfully.");
-            res.setError(ErrorCode.SUCCESS);
+            res = new CommonResponse(ErrorCode.SUCCESS);
         } catch (Exception e) {
-            res.setError(ErrorCode.SYSTEM_EXCEPTION);
+            res = new CommonResponse(ErrorCode.SYSTEM_EXCEPTION);
             logger.info(Controller.class.getName() + " REACHED_SHOP exception: " + e.getMessage());
             e.printStackTrace();
         }
@@ -186,8 +187,8 @@ public class Controller {
      */
     @RequestMapping(value = "/deliveredsuccessfully", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse deliveredSuccessfully(@RequestBody OrderShipperID id) {
-        CommonResponse res = new CommonResponse();
+    public BaseResponse deliveredSuccessfully(@RequestBody OrderShipperID id) {
+        BaseResponse res;
         try {
             String shp_id = id.getShp_id();
             String od_id = id.getOd_id();
@@ -201,10 +202,10 @@ public class Controller {
             logger.info(Controller.class.getName() + " DELIVERED_SUCCESSFULLY update successful status in order successfully.");
             dao.changeShipperStatusToAwakeInShipperSystem(shp_id);
             logger.info(Controller.class.getName() + " DELIVERED_SUCCESSFULLY change status in shipper_system to awake successfully.");
-            res.setError(ErrorCode.SUCCESS);
+            res = new CommonResponse(ErrorCode.SUCCESS);
 
         } catch (Exception e) {
-            res.setError(ErrorCode.SYSTEM_EXCEPTION);
+            res = new CommonResponse(ErrorCode.SYSTEM_EXCEPTION);
             logger.info(Controller.class.getName() + " DELIVERED_SUCCESSFULLY exception: " + e.getMessage());
             e.printStackTrace();
         }
@@ -217,8 +218,8 @@ public class Controller {
      */
     @RequestMapping(value = "/deliveredUnsuccessfully", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse deliveredUnsuccessfully(@RequestBody OrderShipperID id) {
-        CommonResponse res = new CommonResponse();
+    public BaseResponse deliveredUnsuccessfully(@RequestBody OrderShipperID id) {
+        BaseResponse res;
 
         try {
             String od_id = id.getOd_id();
@@ -227,9 +228,9 @@ public class Controller {
             logger.info(Controller.class.getName() + " DELIVERED_UN_SUCCESSFULLY change status in shipper_system to awake successfully.");
             dao.addOrderLogUnsuccessfulDeliverd(od_id);
             logger.info(Controller.class.getName() + " DELIVERED_UN_SUCCESSFULLY insert into order_log status-delivered-un-successfully.");
-            res.setError(ErrorCode.SUCCESS);
+            res = new CommonResponse(ErrorCode.SUCCESS);
         } catch (Exception e) {
-            res.setError(ErrorCode.SYSTEM_EXCEPTION);
+            res = new CommonResponse(ErrorCode.SYSTEM_EXCEPTION);
             logger.info(Controller.class.getName() + " DELIVERED_UN_SUCCESSFULLY exception: " + e.getMessage());
             e.printStackTrace();
         }

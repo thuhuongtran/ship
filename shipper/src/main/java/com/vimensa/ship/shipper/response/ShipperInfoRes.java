@@ -1,6 +1,6 @@
 package com.vimensa.ship.shipper.response;
 
-public class ShipperInfoRes {
+public class ShipperInfoRes extends BaseResponse{
     private String phone;
     private String code;
     private String name;

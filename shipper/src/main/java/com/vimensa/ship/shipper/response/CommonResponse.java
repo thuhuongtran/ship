@@ -1,6 +1,6 @@
 package com.vimensa.ship.shipper.response;
 
-public class CommonResponse {
+public class CommonResponse extends BaseResponse{
     private int error;
 
     public CommonResponse(int error) {
