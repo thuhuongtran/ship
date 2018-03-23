@@ -16,5 +16,10 @@ public class QueryCode {
             "VALUES(?,?,?)";
     public static final String ADD_NEW_DESTINATION = "INSERT INTO `destinations`(`od_id`,`to_lat`,`to_log`,`to`)" +
             " VALUES(?,?,?,?)";
+    public static final String DELETE_ORDER_SYSTEM = "DELETE FROM `order_system` WHERE `od_id`=?";
+    public static final String DELETE_ORDER_SHIPPER = "DELETE FROM `order_shipper` WHERE `od_id`=?";
+    public static final String GET_SHIPPER_ACPETED_ORDER = "SELECT `shipper`.`phone`,`shipper`.`name`,`shipper`.`shp_id`," +
+            "`shipper`.`star`,`shipper`.`avatar` FROM `shipper` INNER JOIN `order_shipper` WHERE `shipper`.`shp_id`=`order_shipper`.`shp_id`" +
+            "AND `order_shipper`.`od_id`=? AND `order_shipper`.`status`=?";
 
 }

@@ -1,6 +1,6 @@
 package com.vimensa.ship.client.response;
 
-public class ClientInfoRes {
+public class ClientInfoRes extends BaseResponse{
     private String phone;
     private String code;
     private String name;

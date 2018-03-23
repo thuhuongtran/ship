@@ -7,6 +7,7 @@ import com.vimensa.ship.client.model.Destination;
 import com.vimensa.ship.client.model.Status;
 import com.vimensa.ship.client.request.UrgentOrderRequest;
 import com.vimensa.ship.client.request.WaitOrderRequest;
+import com.vimensa.ship.client.response.GetShipperRes;
 import com.vimensa.ship.client.service.LoginCode;
 import com.vimensa.ship.client.service.Tasks;
 import org.slf4j.Logger;
@@ -107,6 +108,20 @@ public class DataProcess {
                 return dli.size();
             }
         });
+
+    }
+    public void deleteInOrderSystem(String od_id){
+        String sql = QueryCode.DELETE_ORDER_SYSTEM;
+        jdbcTemplate.update(sql, new Object[]{od_id});
+    }
+    public void deleteInOrderShipper(String od_id){
+        String sql = QueryCode.DELETE_ORDER_SHIPPER;
+        jdbcTemplate.update(sql, new Object[]{od_id});
+    }
+    public GetShipperRes getShipperAceptedOrder(String od_id){
+        String sql = QueryCode.GET_SHIPPER_ACPETED_ORDER;
+        return jdbcTemplate.queryForObject(sql,new Object[]{od_id,Status.SHIPPER_ACCEPTED_ORDER},
+                new BeanPropertyRowMapper<>(GetShipperRes.class));
 
     }
 

@@ -8,6 +8,7 @@ import com.vimensa.ship.client.model.Destination;
 import com.vimensa.ship.client.model.ItemType;
 import com.vimensa.ship.client.request.UrgentOrderRequest;
 import com.vimensa.ship.client.request.WaitOrderRequest;
+import com.vimensa.ship.client.response.GetShipperRes;
 import com.vimensa.ship.client.service.Tasks;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,13 +60,18 @@ public class ControllerTest {
         dao.addUrgentOrderSystem(od_id);
     }
     @Test
+    public void addWaitOrderSystemTest(){
+        String od_id = "1521516074699OD";
+        dao.addWaitOrderSystem(od_id);
+    }
+    @Test
     public void addNewWaitOrderTest(){
         String od_id = Calendar.getInstance().getTimeInMillis() + "OD";
-        Destination d = new Destination(21.1083502, 105.7869331, "House B");
+        Destination d = new Destination(21.1083502, 105.7869331, "backinh");
         List<Destination> dli = new ArrayList<>();
         dli.add(d);
-        WaitOrderRequest o = new WaitOrderRequest("1520580562945cli", "20000", ItemType.OTHERS, "", "House A", 20.63236, 105.56985,
-                "06935623154", dli, 2.5,"1521430233000");
+        WaitOrderRequest o = new WaitOrderRequest("1520580562945cli", "20000", ItemType.OTHERS, "", "saigon", 20.63236, 105.56985,
+                "06935623154", dli, 2.5,"1521522660000");
         dao.addNewWaitOrder(o,od_id);
     }
     @Test
@@ -79,5 +85,9 @@ public class ControllerTest {
         dli.add(d3);
         dao.addDestinations(dli,"1520910987984OD");
     }
-
+    @Test
+    public void getShipperAcceptedOrderTest(){
+        GetShipperRes r = dao.getShipperAceptedOrder("1520911956238OD");
+        System.out.println(r.getPhone()+" "+r.getName()+" "+r.getShp_id()+" "+r.getStar()+" "+r.getAvatar());
+    }
 }

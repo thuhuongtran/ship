@@ -10,4 +10,8 @@ public class Status {
     public static final String CLIENT_ROLE = "client";
     public static final int UNSUCCESSFUL = 13;
     public static final int SUCCESSFUL = 14;
+
+    // status in order_shipper
+    public static final int SHIPPER_ACCEPTED_ORDER =  0;
+
 }
